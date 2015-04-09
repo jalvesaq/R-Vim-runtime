@@ -4,9 +4,9 @@ This repository contains the development versions of R related runtime files
 distributed with both [Vim] and [Neovim]. The files used to be part of the
 [Vim-R-plugin].
 
-The runtime files are sent to both Vim and Neovim maintainers when the changes
-accumulated become important. That is, if you have a fairly up to date Vim or
-Neovim, you do not need to install the files from this respository.
+The runtime files are sent to both Vim and Neovim maintainers when the
+accumulated changes become important. That is, if you have a fairly up to date
+Vim or Neovim, you do not need to install the files from this respository.
 
 If you want to use these files, you have to copy them to either Vim or Neovim
 runtime directories. You may also copy them to your personal *~/.vim* or
@@ -27,7 +27,6 @@ see the documentation, please, in Vim or Neovim, do:
 ## Known bugs
 
 ### Syntax highlight bug
-
 
 There is a syntax highlight problem in inline blocks when a variable name
 contains underline marks in Rmd files. The highlighting algorithm mistakenly
@@ -94,7 +93,7 @@ when the runtime files were distributed with the [Vim-R-plugin]:
 [Pathogen]: https://github.com/tpope/vim-pathogen
 [Vim-Plug]: https://github.com/junegunn/vim-plug
 [Neobundle]: https://github.com/Shougo/neobundle.vim
-[indent_test.R]: https://github.com/jcfaria/Vim-R-plugin/blob/master/r-plugin/indent_test.R
+[indent_test.R]: https://github.com/jalvesaq/R-Vim-runtime/blob/master/tests/indent_test.R
 [Vim-R-plugin]: https://github.com/jcfaria/Vim-R-plugin
 [37]: https://github.com/jcfaria/Vim-R-plugin/issues/37
 [77]: https://github.com/jcfaria/Vim-R-plugin/issues/77
