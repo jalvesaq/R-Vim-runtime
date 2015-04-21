@@ -8,12 +8,17 @@ The runtime files are sent to both Vim and Neovim maintainers when the
 accumulated changes become important. That is, if you have a fairly up to date
 Vim or Neovim, you do not need to install the files from this respository.
 
-If you want to use these files, you have to copy them to either Vim or Neovim
-runtime directories. You may also copy them to your personal *~/.vim* or
-*~/.nvim* directory, but this may not work because on some systems the first
-files sourced by Vim and Neovim are from the system directories. Instead
-of copying the files and checking for updates manually, you may want to use a
-plugin manager like [Vundle], [Pathogen], [Vim-Plug], [Neobundle], or other.
+You may copy the files to your personal *~/.vim* or *~/.nvim* directory, but,
+instead of copying the files and checking for updates manually, you may want
+to use a plugin manager like [Vundle], [Pathogen], [Vim-Plug], [Neobundle], or
+other. Note that the R-Vim-runtime files must be sourced before the
+Vim-R-plugin files, that is, if you still receive the warning about outdated
+runtime after installing these files, try changing the order of Vim-R-plugin
+and R-Vim-runtime.
+
+In some systems, the first files sourced by Vim and Neovim are from the system
+directories. In this case, if you want up to date runtime files, you have to
+copy them to either Vim or Neovim runtime directories. 
 
 ## Options
 
