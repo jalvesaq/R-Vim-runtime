@@ -3,6 +3,7 @@
 " Maintainer:	      Jakson Aquino <jalvesaq@gmail.com>
 " Former Maintainers: Vaidotas Zemlys <zemlys@gmail.com>
 " 		      Tom Payne <tom@tompayne.org>
+" Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
 " Last Change:	      Tue Apr 07, 2015  04:39PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
@@ -31,16 +32,21 @@ syn case match
 
 " Comment
 syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\):"
-syn match rComment contains=@Spell,rCommentTodo "#.*"
+syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
+syn region rOBlock start="^\s*\n#' " start="\%^#' " end="^\(#'\)\@!" contains=rOTitle,rOKeyword,rOExamples,@Spell keepend
+syn region rOTitle start="^\s*\n#' " start="\%^#' " end="^\(#'\s*$\)\@=" contained contains=rOCommentKey
+syn match rOCommentKey "#'" containedin=rOTitle contained
+
+syn region rOExamples start="^#' @examples.*"rs=e+1,hs=e+1 end="^\(#' @.*\)\@=" end="^\(#'\)\@!" contained contains=rOKeyword
+
 syn match rOKeyword contained "@\(param\|return\|name\|rdname\|examples\|include\|docType\)"
 syn match rOKeyword contained "@\(S3method\|TODO\|aliases\|alias\|assignee\|author\|callGraphDepth\|callGraph\)"
 syn match rOKeyword contained "@\(callGraphPrimitives\|concept\|exportClass\|exportMethod\|exportPattern\|export\|formals\)"
 syn match rOKeyword contained "@\(format\|importClassesFrom\|importFrom\|importMethodsFrom\|import\|keywords\|useDynLib\)"
 syn match rOKeyword contained "@\(method\|noRd\|note\|references\|seealso\|setClass\|slot\|source\|title\|usage\)"
 syn match rOKeyword contained "@\(family\|template\|templateVar\|description\|details\|inheritParams\)"
-syn match rOComment contains=@Spell,rOKeyword "#'.*"
 
 
 if &filetype == "rhelp"
@@ -203,7 +209,6 @@ hi def link rBoolean     Boolean
 hi def link rBraceError  Error
 hi def link rComment     Comment
 hi def link rCommentTodo Todo
-hi def link rOComment    Comment
 hi def link rComplex     Number
 hi def link rConditional Conditional
 hi def link rConstant    Constant
@@ -231,6 +236,11 @@ hi def link rString      String
 hi def link rStrError    Error
 hi def link rType        Type
 hi def link rOKeyword    Title
+hi def link rOBlock      Comment
+hi def link rOTitle      Title
+hi def link rOCommentKey Comment
+hi def link rOExamples   SpecialComment
+
 
 let b:current_syntax="r"
 
