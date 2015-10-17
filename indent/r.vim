@@ -35,6 +35,9 @@ endif
 if ! exists("g:r_indent_op_pattern")
   let g:r_indent_op_pattern = '\(+\|-\|\*\|/\|=\|\~\|%\)$'
 endif
+if ! exists("g:r_indent_noalign_funcs")
+  let g:r_indent_noalign_funcs = '\(shinyUI\|shinyServer\|htmlOutput\|imageOutput\|outputOptions\|tableOutput\|textOutput\|verbatimTextOutput\|downloadButton\|Progress\|withProgress\|renderPlot\|renderText\|renderPrint\|renderDataTable\|renderImage\|renderTable\|renderUI\|downloadHandler\|reactivePlot\|reactivePrint\|reactiveTable\|reactiveText\|reactiveUI\|absolutePanel\|bootstrapPage\|column\|conditionalPanel\|fixedPage\|fluidPage\|headerPanel\|helpText\|icon\|mainPanel\|navbarPage\|navlistPanel\|pageWithSidebar\|sidebarLayout\|sidebarPanel\|tabPanel\|tabsetPanel\|titlePanel\|inputPanel\|flowLayout\|splitLayout\|verticalLayout\|wellPanel\|withMathJax\)'
+endif
 
 function s:RDelete_quotes(line)
   let i = 0
@@ -309,7 +312,11 @@ function GetRIndent()
       if &filetype == "rhelp"
         let ind = s:Get_last_paren_idx(line, '(', ')', pb)
       else
-        let ind = s:Get_last_paren_idx(getline(lnum), '(', ')', pb)
+        if line =~ g:r_indent_noalign_funcs
+          let ind = indent(lnum) + &sw
+        else
+          let ind = s:Get_last_paren_idx(getline(lnum), '(', ')', pb)
+        endif
       endif
       return ind
     endif
@@ -508,6 +515,10 @@ function GetRIndent()
       return ind
     endif
   endwhile
+
+  if pline =~ g:r_indent_noalign_funcs && g:r_indent_align_args
+    return pind + &sw
+  endif
 
   return ind
 

@@ -558,6 +558,35 @@ flights %>%
     endop <- "END"
 x <- 0
 
+
+shinyUI(
+    fluidPage(
+        titlePanel("Hello Shiny!"),
+
+        sidebarLayout(
+            sidebarPanel(
+                sliderInput("bins",
+                    "Number of bins:",
+                    min = 1,
+                    max = 50,
+                    value = 30)
+                ),
+            mainPanel(
+                plotOutput("distPlot")
+                )
+            )
+        ))
+
+shinyServer(
+    function(input, output) {
+        output$distPlot <- renderPlot({
+            x <- faithful[, 2]
+            bins <- seq(min(x), max(x), length.out = input$bins + 1)
+
+            hist(x, breaks = bins, col = 'darkgray', border = 'white')
+        })
+    })
+
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
