@@ -41,7 +41,7 @@ syn match rOCommentKey "#\{1,2}'" containedin=rOTitle contained
 
 syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOKeyword
 
-syn match rOKeyword contained "@\(param\|return\|name\|rdname\|examples\|include\|docType\)"
+syn match rOKeyword contained "@\(param\|return\|name\|rdname\|example\|examples\|include\|docType\)"
 syn match rOKeyword contained "@\(S3method\|TODO\|aliases\|alias\|assignee\|author\|callGraphDepth\|callGraph\)"
 syn match rOKeyword contained "@\(callGraphPrimitives\|concept\|exportClass\|exportMethod\|exportPattern\|export\|formals\)"
 syn match rOKeyword contained "@\(format\|importClassesFrom\|importFrom\|importMethodsFrom\|import\|keywords\|useDynLib\)"
