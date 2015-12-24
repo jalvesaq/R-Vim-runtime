@@ -591,13 +591,13 @@ a <- theta1$A %>%
     { .[1:(nrow(.) - 1), 1:(ncol(.) - 1)] }
 a[a >= thres] <- 1
 
-############################################################################
-## indent/r.vim starts to make mistakes here
-
 y = x &
     x
 y = x |
     x
+
+############################################################################
+## indent/r.vim starts to make mistakes here
 
 test <- this('the function works',
              {

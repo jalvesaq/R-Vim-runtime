@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Dec 24, 2015  07:12AM
+" Last Change:	Thu Dec 24, 2015  10:39AM
 
 
 " Only load this indent file when no other was loaded.
@@ -33,7 +33,7 @@ if ! exists("g:r_indent_ess_compatible")
   let g:r_indent_ess_compatible = 0
 endif
 if ! exists("g:r_indent_op_pattern")
-  let g:r_indent_op_pattern = '\(+\|-\|\*\|/\|=\|\~\|%\)$'
+  let g:r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\)$'
 endif
 
 function s:RDelete_quotes(line)
@@ -360,14 +360,14 @@ function GetRIndent()
   let olnum = s:Get_prev_line(lnum)
   let oline = getline(olnum)
   if olnum > 0
-    if line =~ g:r_indent_op_pattern
-      if oline =~ g:r_indent_op_pattern
+    if line =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+      if oline =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
         return indent(lnum)
       else
         return indent(lnum) + &sw
       endif
     else
-      if oline =~ g:r_indent_op_pattern
+      if oline =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
         return indent(lnum) - &sw
       endif
     endif
