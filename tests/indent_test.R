@@ -573,6 +573,20 @@ flights %>%
     endop <- "END"
 x <- 0
 
+foo <- function(){
+    xxx
+    if (ismat) for (i in seq_len(differences)) r <- r[i1, , drop = FALSE] -
+        r[-nrow(r):-(nrow(r) - lag + 1), , drop = FALSE]
+    else for (i in seq_len(differences))
+        r <- r[i1] - r[-length(r):-(length(r) - lag + 1L)]
+    r
+    if(is.null(width)) width <- 0L
+    else if(width < 0L) { flag <- "-"; width <- -width }
+    format.default(x, width=width,
+                   justify = if(flag=="-") "left" else "right")
+    xxx
+}
+
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
@@ -620,20 +634,6 @@ data.frame <- function(..., row.names = NULL, check.rows = FALSE, check.names = 
     xxx
 }
 
-
-foo <- function(){
-    xxx
-    if (ismat) for (i in seq_len(differences)) r <- r[i1, , drop = FALSE] -
-        r[-nrow(r):-(nrow(r) - lag + 1), , drop = FALSE]
-    else for (i in seq_len(differences))
-        r <- r[i1] - r[-length(r):-(length(r) - lag + 1L)]
-    r
-    if(is.null(width)) width <- 0L
-    else if(width < 0L) { flag <- "-"; width <- -width }
-    format.default(x, width=width,
-                   justify = if(flag=="-") "left" else "right")
-    xxx
-}
 
 try <- function(expr, silent = FALSE) {
     if(file == "") file <- stdin()

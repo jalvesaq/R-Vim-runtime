@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Apr 07, 2015  04:39PM
+" Last Change:	Thu Dec 24, 2015  06:48AM
 
 
 " Only load this indent file when no other was loaded.
@@ -345,7 +345,7 @@ function GetRIndent()
   endif
 
   let post_block = 0
-  if line =~ '}$'
+  if line =~ '}$' && s:Get_paren_balance(line, '{', '}') < 0
     let lnum = s:Get_matching_brace(lnum, '{', '}', 0)
     let line = SanitizeRLine(getline(lnum))
     if lnum > 0 && line =~ '^\s*{'
@@ -472,7 +472,6 @@ function GetRIndent()
   endif
 
   let ind = indent(lnum)
-  let pind = indent(plnum)
 
   if g:r_indent_align_args == 0 && pb != 0
     let ind += pb * &sw
@@ -482,6 +481,12 @@ function GetRIndent()
   if g:r_indent_align_args == 0 && bb != 0
     let ind += bb * &sw
     return ind
+  endif
+
+  if plnum > 0
+    let pind = indent(plnum)
+  else
+    let pind = 0
   endif
 
   if ind == pind || (ind == (pind  + &sw) && pline =~ '{$' && ppost_else == 0)
