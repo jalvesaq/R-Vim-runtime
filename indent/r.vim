@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Dec 24, 2015  06:48AM
+" Last Change:	Thu Dec 24, 2015  07:12AM
 
 
 " Only load this indent file when no other was loaded.
@@ -266,7 +266,7 @@ function GetRIndent()
     return 0
   endif
 
-  if cline =~ '^\s*{'
+  if cline =~ '^\s*{' && s:Get_paren_balance(cline, '{', '}') > 0
     if g:r_indent_ess_compatible && line =~ ')$'
       let nlnum = lnum
       let nline = line
