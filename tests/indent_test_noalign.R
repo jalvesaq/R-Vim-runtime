@@ -654,6 +654,12 @@ try <- function(expr, silent = FALSE) {
     f
 }
 
+err <- (a - A.real) %>%
+    {
+        ./2
+    }
+errors <- c(errors, err)
+
 flights %>%
     group <- by(year, month, day) %>%
     select(arr <- delay, dep <- delay) %>%
