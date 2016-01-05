@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Dec 24, 2015  10:39AM
+" Last Change:	Mon Jan 04, 2016  07:17PM
 
 
 " Only load this indent file when no other was loaded.
@@ -33,7 +33,7 @@ if ! exists("g:r_indent_ess_compatible")
   let g:r_indent_ess_compatible = 0
 endif
 if ! exists("g:r_indent_op_pattern")
-  let g:r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\)$'
+  let g:r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\)\s*$'
 endif
 
 function s:RDelete_quotes(line)
