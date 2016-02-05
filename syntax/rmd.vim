@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Tue Apr 07, 2015  04:39PM
+" Last Change: Fri Feb 05, 2016
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc:
@@ -59,6 +59,8 @@ if rmdIsPandoc == 0
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
+  " Extend cluster
+  syn cluster texMathZoneGroup add=rmdrInline
   " Inline
   syntax match rmdLaTeXInlDelim "\$"
   syntax match rmdLaTeXInlDelim "\\\$"
