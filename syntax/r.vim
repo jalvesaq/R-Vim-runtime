@@ -5,16 +5,20 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Wed Feb 03, 2016  05:40AM
+" Last Change:	      Thu Feb 04, 2016  10:51AM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions is defined in
 " runtime files created by a filetype plugin, if installed.
 "
 " CONFIGURATION:
-"   syntax folding can be turned on by
+"   Syntax folding can be turned on by
 "
 "      let r_syntax_folding = 1
+"
+"   ROxygen highlighting can be turned off by
+"
+"      let r_hl_roxygen = 0
 "
 " Some lines of code were borrowed from Zhuojun Chen.
 
@@ -24,7 +28,7 @@ endif
 
 setlocal iskeyword=@,48-57,_,.
 
-if exists("g:r_syntax_folding")
+if exists("g:r_syntax_folding") && g:r_syntax_folding
   setlocal foldmethod=syntax
 endif
 if !exists("g:r_hl_roxygen")
