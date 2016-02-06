@@ -3,7 +3,7 @@
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Former Maintainer: Johannes Ranke <jranke@uni-bremen.de>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Feb 06, 2016  06:46AM
+" Last Change: Sat Feb 06, 2016  09:09AM
 " Remarks:     - Includes R syntax highlighting in the appropriate
 "                sections if an r.vim file is in the same directory or in the
 "                default debian location.
@@ -16,6 +16,7 @@ if exists("b:current_syntax")
   finish
 endif 
 
+scriptencoding utf-8
 setlocal iskeyword=@,48-57,_,.
 
 syn case match
@@ -86,57 +87,77 @@ syn match rhelpMathOp  ">" contained
 syn match rhelpMathOp  "+" contained
 syn match rhelpMathOp  "-" contained
 syn match rhelpMathOp  "=" contained
-syn match rhelpMathSimb   	"\\infty\>" contained
-syn match rhelpMathSimb   	"\\ge\>" contained
-syn match rhelpMathSimb   	"\\le\>" contained
-syn match rhelpMathSimb   	"\\alpha\>" contained
-syn match rhelpMathSimb   	"\\beta\>" contained
-syn match rhelpMathSimb   	"\\gamma\>" contained
-syn match rhelpMathSimb   	"\\delta\>" contained
-syn match rhelpMathSimb   	"\\epsilon\>" contained
-syn match rhelpMathSimb   	"\\zeta\>" contained
-syn match rhelpMathSimb   	"\\eta\>" contained
-syn match rhelpMathSimb   	"\\theta\>" contained
-syn match rhelpMathSimb   	"\\iota\>" contained
-syn match rhelpMathSimb   	"\\kappa\>" contained
-syn match rhelpMathSimb   	"\\lambda\>" contained
-syn match rhelpMathSimb   	"\\mu\>" contained
-syn match rhelpMathSimb   	"\\nu\>" contained
-syn match rhelpMathSimb   	"\\xi\>" contained
-syn match rhelpMathSimb   	"\\omicron\>" contained
-syn match rhelpMathSimb   	"\\pi\>" contained
-syn match rhelpMathSimb   	"\\rho\>" contained
-syn match rhelpMathSimb   	"\\sigma\>" contained
-syn match rhelpMathSimb   	"\\tau\>" contained
-syn match rhelpMathSimb   	"\\upsilon\>" contained
-syn match rhelpMathSimb   	"\\phi\>" contained
-syn match rhelpMathSimb   	"\\chi\>" contained
-syn match rhelpMathSimb   	"\\psi\>" contained
-syn match rhelpMathSimb   	"\\omega\>" contained
-syn match rhelpMathSimb   	"\\Alpha\>" contained
-syn match rhelpMathSimb   	"\\Beta\>" contained
-syn match rhelpMathSimb   	"\\Gamma\>" contained
-syn match rhelpMathSimb   	"\\Delta\>" contained
-syn match rhelpMathSimb   	"\\Epsilon\>" contained
-syn match rhelpMathSimb   	"\\Zeta\>" contained
-syn match rhelpMathSimb   	"\\Eta\>" contained
-syn match rhelpMathSimb   	"\\Theta\>" contained
-syn match rhelpMathSimb   	"\\Iota\>" contained
-syn match rhelpMathSimb   	"\\Kappa\>" contained
-syn match rhelpMathSimb   	"\\Lambda\>" contained
-syn match rhelpMathSimb   	"\\Mu\>" contained
-syn match rhelpMathSimb   	"\\Nu\>" contained
-syn match rhelpMathSimb   	"\\Xi\>" contained
-syn match rhelpMathSimb   	"\\Omicron\>" contained
-syn match rhelpMathSimb   	"\\Pi\>" contained
-syn match rhelpMathSimb   	"\\Rho\>" contained
-syn match rhelpMathSimb   	"\\Sigma\>" contained
-syn match rhelpMathSimb   	"\\Tau\>" contained
-syn match rhelpMathSimb   	"\\Upsilon\>" contained
-syn match rhelpMathSimb   	"\\Phi\>" contained
-syn match rhelpMathSimb   	"\\Chi\>" contained
-syn match rhelpMathSimb   	"\\Psi\>" contained
-syn match rhelpMathSimb   	"\\Omega\>" contained
+
+" Conceal function based on syntax/tex.vim
+if exists("g:tex_conceal")
+  let s:tex_conceal = g:tex_conceal
+else
+  let s:tex_conceal = 'gm'
+endif
+function s:HideSymbol(pat, cchar, hide)
+  if a:hide
+    exe "syn match rhelpMathSymb '" . a:pat . "' contained conceal cchar=" . a:cchar
+  else
+    exe "syn match rhelpMathSymb '" . a:pat . "' contained"
+  endif
+endfunction
+
+if s:tex_conceal =~ 'm'
+  let s:hd = 1
+else
+  let s:hd = 0
+endif
+call s:HideSymbol('\\infty\>',  '∞', s:hd)
+call s:HideSymbol('\\ge\>',     '≥', s:hd)
+call s:HideSymbol('\\le\>',     '≤', s:hd)
+call s:HideSymbol('\\prod\>',   '∏', s:hd)
+call s:HideSymbol('\\sum\>',    '∑', s:hd)
+syn match rhelpMathSymb   	"\\sqrt\>" contained
+
+if s:tex_conceal =~ 'g'
+  let s:hd = 1
+else
+  let s:hd = 0
+endif
+call s:HideSymbol('\\alpha\>',    'α', s:hd)
+call s:HideSymbol('\\beta\>',     'β', s:hd)
+call s:HideSymbol('\\gamma\>',    'γ', s:hd)
+call s:HideSymbol('\\delta\>',    'δ', s:hd)
+call s:HideSymbol('\\epsilon\>',  'ϵ', s:hd)
+call s:HideSymbol('\\zeta\>',     'ζ', s:hd)
+call s:HideSymbol('\\eta\>',      'η', s:hd)
+call s:HideSymbol('\\theta\>',    'θ', s:hd)
+call s:HideSymbol('\\iota\>',     'ι', s:hd)
+call s:HideSymbol('\\kappa\>',    'κ', s:hd)
+call s:HideSymbol('\\lambda\>',   'λ', s:hd)
+call s:HideSymbol('\\mu\>',       'μ', s:hd)
+call s:HideSymbol('\\nu\>',       'ν', s:hd)
+call s:HideSymbol('\\xi\>',       'ξ', s:hd)
+call s:HideSymbol('\\pi\>',       'π', s:hd)
+call s:HideSymbol('\\rho\>',      'ρ', s:hd)
+call s:HideSymbol('\\sigma\>',    'σ', s:hd)
+call s:HideSymbol('\\tau\>',      'τ', s:hd)
+call s:HideSymbol('\\upsilon\>',  'υ', s:hd)
+call s:HideSymbol('\\phi\>',      'ϕ', s:hd)
+call s:HideSymbol('\\chi\>',      'χ', s:hd)
+call s:HideSymbol('\\psi\>',      'ψ', s:hd)
+call s:HideSymbol('\\omega\>',    'ω', s:hd)
+call s:HideSymbol('\\Gamma\>',    'Γ', s:hd)
+call s:HideSymbol('\\Delta\>',    'Δ', s:hd)
+call s:HideSymbol('\\Theta\>',    'Θ', s:hd)
+call s:HideSymbol('\\Lambda\>',   'Λ', s:hd)
+call s:HideSymbol('\\Xi\>',       'Ξ', s:hd)
+call s:HideSymbol('\\Pi\>',       'Π', s:hd)
+call s:HideSymbol('\\Sigma\>',    'Σ', s:hd)
+call s:HideSymbol('\\Upsilon\>',  'Υ', s:hd)
+call s:HideSymbol('\\Phi\>',      'Φ', s:hd)
+call s:HideSymbol('\\Psi\>',      'Ψ', s:hd)
+call s:HideSymbol('\\Omega\>',    'Ω', s:hd)
+delfunction s:HideSymbol
+" Note: The letters 'omicron', 'Alpha', 'Beta', 'Epsilon', 'Zeta', 'Eta',
+" 'Iota', 'Kappa', 'Mu', 'Nu', 'Omicron', 'Rho', 'Tau' and 'Chi' are listed
+" at src/library/tools/R/Rd2txt.R because they are valid in HTML, although
+" they do not make valid LaTeX code (e.g. &Alpha; versus \Alpha).
 
 " Links {{{1
 syn region rhelpLink matchgroup=rhelpType start="\\link{" end="}" contained keepend extend
@@ -150,8 +171,8 @@ syn region rhelpLink matchgroup=rhelpType start="\\figure{" end="}" contained ke
 syn region rhelpVerbatim matchgroup=rhelpType start="\\samp{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
 syn region rhelpVerbatim matchgroup=rhelpType start="\\verb{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
 
-syn region rhelpEquation matchgroup=rhelpType start="\\eqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSimb,rhelpMathOp,rhelpRegion contained keepend extend
-syn region rhelpEquation matchgroup=rhelpType start="\\deqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSimb,rhelpMathOp,rhelpRegion contained keepend extend
+syn region rhelpEquation matchgroup=rhelpType start="\\eqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSymb,rhelpMathOp,rhelpRegion contained keepend extend
+syn region rhelpEquation matchgroup=rhelpType start="\\deqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSymb,rhelpMathOp,rhelpRegion contained keepend extend
 
 " Type Styles {{{1
 syn match rhelpType		"\\emph\>"
@@ -245,7 +266,7 @@ hi def link rhelpDelimiter   Delimiter
 hi def link rhelpComment     Comment
 hi def link rhelpRComment    Comment
 hi def link rhelpSpecialChar SpecialChar
-hi def link rhelpMathSimb    Special
+hi def link rhelpMathSymb    Special
 hi def link rhelpMathOp      Operator
 
 let   b:current_syntax = "rhelp"
