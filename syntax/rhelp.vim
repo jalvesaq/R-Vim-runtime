@@ -3,7 +3,7 @@
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Former Maintainer: Johannes Ranke <jranke@uni-bremen.de>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Fri Feb 05, 2016  08:51PM
+" Last Change: Sat Feb 06, 2016  06:46AM
 " Remarks:     - Includes R syntax highlighting in the appropriate
 "                sections if an r.vim file is in the same directory or in the
 "                default debian location.
@@ -12,11 +12,7 @@
 "              - No support for \var tag within quoted string
 
 " Version Clears: {{{1
-" For version 5.x: Clear all syntax items
-" For version 6.x and 7.x: Quit when a syntax file was already loaded
-if version < 600 
-  syntax clear
-elseif exists("b:current_syntax")
+if exists("b:current_syntax")
   finish
 endif 
 
@@ -230,38 +226,27 @@ syn match rhelpParenError /[\]}]/ contained
 syntax sync match rhelpSyncRcode grouphere rhelpRcode "\\examples{"
 
 " Define the default highlighting {{{1
-" For version 5.7 and earlier: only when not done already
-" For version 5.8 and later: only when an item doesn't have highlighting yet
-if version >= 508 || !exists("did_rhelp_syntax_inits")
-  if version < 508
-    let did_rhelp_syntax_inits = 1
-    command -nargs=+ HiLink hi link <args>
-  else
-    command -nargs=+ HiLink hi def link <args>
-  endif
-  HiLink rhelpVerbatim    String
-  HiLink rhelpDelimiter   Delimiter
-  HiLink rhelpIdentifier  Identifier
-  HiLink rhelpString      String
-  HiLink rhelpCodeSpecial Special
-  HiLink rhelpKeyword     Keyword
-  HiLink rhelpDots        Keyword
-  HiLink rhelpLink        Underlined
-  HiLink rhelpType        Type
-  HiLink rhelpSection     PreCondit
-  HiLink rhelpError       Error
-  HiLink rhelpBraceError  Error
-  HiLink rhelpCurlyError  Error
-  HiLink rhelpParenError  Error
-  HiLink rhelpPreProc     PreProc
-  HiLink rhelpDelimiter   Delimiter
-  HiLink rhelpComment     Comment
-  HiLink rhelpRComment    Comment
-  HiLink rhelpSpecialChar SpecialChar
-  HiLink rhelpMathSimb    Special
-  HiLink rhelpMathOp      Operator
-  delcommand HiLink
-endif 
+hi def link rhelpVerbatim    String
+hi def link rhelpDelimiter   Delimiter
+hi def link rhelpIdentifier  Identifier
+hi def link rhelpString      String
+hi def link rhelpCodeSpecial Special
+hi def link rhelpKeyword     Keyword
+hi def link rhelpDots        Keyword
+hi def link rhelpLink        Underlined
+hi def link rhelpType        Type
+hi def link rhelpSection     PreCondit
+hi def link rhelpError       Error
+hi def link rhelpBraceError  Error
+hi def link rhelpCurlyError  Error
+hi def link rhelpParenError  Error
+hi def link rhelpPreProc     PreProc
+hi def link rhelpDelimiter   Delimiter
+hi def link rhelpComment     Comment
+hi def link rhelpRComment    Comment
+hi def link rhelpSpecialChar SpecialChar
+hi def link rhelpMathSimb    Special
+hi def link rhelpMathOp      Operator
 
 let   b:current_syntax = "rhelp"
 

@@ -1,16 +1,13 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Fri Feb 05, 2016
+" Last Change: Sat Feb 06, 2016  06:45AM
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc:
 "   let rmd_syn_hl_chunk = 1
 
-" for portability
-if version < 600
-  syntax clear
-elseif exists("b:current_syntax")
+if exists("b:current_syntax")
   finish
 endif
 

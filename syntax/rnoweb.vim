@@ -1,19 +1,14 @@
 " Vim syntax file
 " Language:    R noweb Files
 " Maintainer:  Johannes Ranke <jranke@uni-bremen.de>
-" Last Change: 2016 February 05
+" Last Change: Sat Feb 06, 2016  06:47AM
 " Version:     0.9.1
 " Remarks:     - This file is inspired by the proposal of 
 "                Fernando Henrique Ferraz Pereira da Rosa <feferraz@ime.usp.br>
 "                http://www.ime.usp.br/~feferraz/en/sweavevim.html
 "
 
-" Version Clears: {{{1
-" For version 5.x: Clear all syntax items
-" For version 6.x and 7.x: Quit when a syntax file was already loaded
-if version < 600 
-  syntax clear
-elseif exists("b:current_syntax")
+if exists("b:current_syntax")
   finish
 endif 
 
