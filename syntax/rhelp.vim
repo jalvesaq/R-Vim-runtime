@@ -3,7 +3,7 @@
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Former Maintainer: Johannes Ranke <jranke@uni-bremen.de>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Feb 06, 2016  09:09AM
+" Last Change: Sat Feb 06, 2016  11:34AM
 " Remarks:     - Includes R syntax highlighting in the appropriate
 "                sections if an r.vim file is in the same directory or in the
 "                default debian location.
@@ -73,7 +73,7 @@ syn match rhelpKeyword	"\\sspace\>"
 syn match rhelpKeyword  "--"
 syn match rhelpKeyword  "---"
 
-" Condition Keywords {{{1
+" Condition Keywords {{{2
 syn match rhelpKeyword	"\\if\>"
 syn match rhelpKeyword	"\\ifelse\>"
 syn match rhelpKeyword	"\\out\>"
@@ -81,14 +81,14 @@ syn match rhelpKeyword	"\\out\>"
 " \ifelse{latex}{\eqn{p = 5 + 6 - 7 \times 8}}{\eqn{p = 5 + 6 - 7 * 8}}
 " \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}}
 
-" Keywords and operators valid only if in math mode {{{1
+" Keywords and operators valid only if in math mode {{{2
 syn match rhelpMathOp  "<" contained
 syn match rhelpMathOp  ">" contained
 syn match rhelpMathOp  "+" contained
 syn match rhelpMathOp  "-" contained
 syn match rhelpMathOp  "=" contained
 
-" Conceal function based on syntax/tex.vim
+" Conceal function based on syntax/tex.vim {{{2
 if exists("g:tex_conceal")
   let s:tex_conceal = g:tex_conceal
 else
@@ -102,6 +102,7 @@ function s:HideSymbol(pat, cchar, hide)
   endif
 endfunction
 
+" Math symbols {{{2
 if s:tex_conceal =~ 'm'
   let s:hd = 1
 else
@@ -114,6 +115,7 @@ call s:HideSymbol('\\prod\>',   '∏', s:hd)
 call s:HideSymbol('\\sum\>',    '∑', s:hd)
 syn match rhelpMathSymb   	"\\sqrt\>" contained
 
+" Greek letters {{{2
 if s:tex_conceal =~ 'g'
   let s:hd = 1
 else
@@ -171,6 +173,7 @@ syn region rhelpLink matchgroup=rhelpType start="\\figure{" end="}" contained ke
 syn region rhelpVerbatim matchgroup=rhelpType start="\\samp{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
 syn region rhelpVerbatim matchgroup=rhelpType start="\\verb{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
 
+" Equation {{{1
 syn region rhelpEquation matchgroup=rhelpType start="\\eqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSymb,rhelpMathOp,rhelpRegion contained keepend extend
 syn region rhelpEquation matchgroup=rhelpType start="\\deqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSymb,rhelpMathOp,rhelpRegion contained keepend extend
 
@@ -182,8 +185,6 @@ syn match rhelpType		"\\sQuote\>"
 syn match rhelpType		"\\dQuote\>"
 syn match rhelpType		"\\preformatted\>"
 syn match rhelpType		"\\kbd\>"
-"syn match rhelpType		"\\eqn\>"
-"syn match rhelpType		"\\deqn\>"
 syn match rhelpType		"\\file\>"
 syn match rhelpType		"\\email\>"
 syn match rhelpType		"\\enc\>"
