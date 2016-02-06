@@ -3,15 +3,13 @@
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Former Maintainer: Johannes Ranke <jranke@uni-bremen.de>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Tue Apr 07, 2015  04:39PM
+" Last Change: Fri Feb 05, 2016  08:51PM
 " Remarks:     - Includes R syntax highlighting in the appropriate
 "                sections if an r.vim file is in the same directory or in the
 "                default debian location.
 "              - There is no Latex markup in equations
 "              - Thanks to Will Gray for finding and fixing a bug
-"              - No support for \if, \ifelse and \out as I don't understand
-"                them and have no examples at hand (help welcome).
-"              - No support for \var tag within quoted string (dito)
+"              - No support for \var tag within quoted string
 
 " Version Clears: {{{1
 " For version 5.x: Clear all syntax items
@@ -30,8 +28,10 @@ syn case match
 syn region rhelpIdentifier matchgroup=rhelpSection	start="\\name{" end="}" 
 syn region rhelpIdentifier matchgroup=rhelpSection	start="\\alias{" end="}" 
 syn region rhelpIdentifier matchgroup=rhelpSection	start="\\pkg{" end="}" contains=rhelpLink
+syn region rhelpIdentifier matchgroup=rhelpSection	start="\\CRANpkg{" end="}" contains=rhelpLink
 syn region rhelpIdentifier matchgroup=rhelpSection start="\\method{" end="}" contained
 syn region rhelpIdentifier matchgroup=rhelpSection start="\\Rdversion{" end="}"
+
 
 " Highlighting of R code using an existing r.vim syntax file if available {{{1
 syn include @R syntax/r.vim
@@ -70,76 +70,92 @@ syn match rhelpDelimiter		"\\cr"
 syn match rhelpDelimiter		"\\tab "
 
 " Keywords {{{1
-syn match rhelpKeyword	"\\R"
-syn match rhelpKeyword	"\\ldots"
+syn match rhelpKeyword	"\\R\>"
+syn match rhelpKeyword	"\\ldots\>"
+syn match rhelpKeyword	"\\sspace\>"
 syn match rhelpKeyword  "--"
 syn match rhelpKeyword  "---"
-syn match rhelpKeyword  "<"
-syn match rhelpKeyword  ">"
-syn match rhelpKeyword	"\\ge"
-syn match rhelpKeyword	"\\le"
-syn match rhelpKeyword	"\\alpha"
-syn match rhelpKeyword	"\\beta"
-syn match rhelpKeyword	"\\gamma"
-syn match rhelpKeyword	"\\delta"
-syn match rhelpKeyword	"\\epsilon"
-syn match rhelpKeyword	"\\zeta"
-syn match rhelpKeyword	"\\eta"
-syn match rhelpKeyword	"\\theta"
-syn match rhelpKeyword	"\\iota"
-syn match rhelpKeyword	"\\kappa"
-syn match rhelpKeyword	"\\lambda"
-syn match rhelpKeyword	"\\mu"
-syn match rhelpKeyword	"\\nu"
-syn match rhelpKeyword	"\\xi"
-syn match rhelpKeyword	"\\omicron"
-syn match rhelpKeyword	"\\pi"
-syn match rhelpKeyword	"\\rho"
-syn match rhelpKeyword	"\\sigma"
-syn match rhelpKeyword	"\\tau"
-syn match rhelpKeyword	"\\upsilon"
-syn match rhelpKeyword	"\\phi"
-syn match rhelpKeyword	"\\chi"
-syn match rhelpKeyword	"\\psi"
-syn match rhelpKeyword	"\\omega"
-syn match rhelpKeyword	"\\Alpha"
-syn match rhelpKeyword	"\\Beta"
-syn match rhelpKeyword	"\\Gamma"
-syn match rhelpKeyword	"\\Delta"
-syn match rhelpKeyword	"\\Epsilon"
-syn match rhelpKeyword	"\\Zeta"
-syn match rhelpKeyword	"\\Eta"
-syn match rhelpKeyword	"\\Theta"
-syn match rhelpKeyword	"\\Iota"
-syn match rhelpKeyword	"\\Kappa"
-syn match rhelpKeyword	"\\Lambda"
-syn match rhelpKeyword	"\\Mu"
-syn match rhelpKeyword	"\\Nu"
-syn match rhelpKeyword	"\\Xi"
-syn match rhelpKeyword	"\\Omicron"
-syn match rhelpKeyword	"\\Pi"
-syn match rhelpKeyword	"\\Rho"
-syn match rhelpKeyword	"\\Sigma"
-syn match rhelpKeyword	"\\Tau"
-syn match rhelpKeyword	"\\Upsilon"
-syn match rhelpKeyword	"\\Phi"
-syn match rhelpKeyword	"\\Chi"
-syn match rhelpKeyword	"\\Psi"
-syn match rhelpKeyword	"\\Omega"
+
+" Condition Keywords {{{1
+syn match rhelpKeyword	"\\if\>"
+syn match rhelpKeyword	"\\ifelse\>"
+syn match rhelpKeyword	"\\out\>"
+" Examples of usage:
+" \ifelse{latex}{\eqn{p = 5 + 6 - 7 \times 8}}{\eqn{p = 5 + 6 - 7 * 8}}
+" \ifelse{latex}{\out{$\alpha$}}{\ifelse{html}{\out{&alpha;}}{alpha}}
+
+" Keywords and operators valid only if in math mode {{{1
+syn match rhelpMathOp  "<" contained
+syn match rhelpMathOp  ">" contained
+syn match rhelpMathOp  "+" contained
+syn match rhelpMathOp  "-" contained
+syn match rhelpMathOp  "=" contained
+syn match rhelpMathSimb   	"\\infty\>" contained
+syn match rhelpMathSimb   	"\\ge\>" contained
+syn match rhelpMathSimb   	"\\le\>" contained
+syn match rhelpMathSimb   	"\\alpha\>" contained
+syn match rhelpMathSimb   	"\\beta\>" contained
+syn match rhelpMathSimb   	"\\gamma\>" contained
+syn match rhelpMathSimb   	"\\delta\>" contained
+syn match rhelpMathSimb   	"\\epsilon\>" contained
+syn match rhelpMathSimb   	"\\zeta\>" contained
+syn match rhelpMathSimb   	"\\eta\>" contained
+syn match rhelpMathSimb   	"\\theta\>" contained
+syn match rhelpMathSimb   	"\\iota\>" contained
+syn match rhelpMathSimb   	"\\kappa\>" contained
+syn match rhelpMathSimb   	"\\lambda\>" contained
+syn match rhelpMathSimb   	"\\mu\>" contained
+syn match rhelpMathSimb   	"\\nu\>" contained
+syn match rhelpMathSimb   	"\\xi\>" contained
+syn match rhelpMathSimb   	"\\omicron\>" contained
+syn match rhelpMathSimb   	"\\pi\>" contained
+syn match rhelpMathSimb   	"\\rho\>" contained
+syn match rhelpMathSimb   	"\\sigma\>" contained
+syn match rhelpMathSimb   	"\\tau\>" contained
+syn match rhelpMathSimb   	"\\upsilon\>" contained
+syn match rhelpMathSimb   	"\\phi\>" contained
+syn match rhelpMathSimb   	"\\chi\>" contained
+syn match rhelpMathSimb   	"\\psi\>" contained
+syn match rhelpMathSimb   	"\\omega\>" contained
+syn match rhelpMathSimb   	"\\Alpha\>" contained
+syn match rhelpMathSimb   	"\\Beta\>" contained
+syn match rhelpMathSimb   	"\\Gamma\>" contained
+syn match rhelpMathSimb   	"\\Delta\>" contained
+syn match rhelpMathSimb   	"\\Epsilon\>" contained
+syn match rhelpMathSimb   	"\\Zeta\>" contained
+syn match rhelpMathSimb   	"\\Eta\>" contained
+syn match rhelpMathSimb   	"\\Theta\>" contained
+syn match rhelpMathSimb   	"\\Iota\>" contained
+syn match rhelpMathSimb   	"\\Kappa\>" contained
+syn match rhelpMathSimb   	"\\Lambda\>" contained
+syn match rhelpMathSimb   	"\\Mu\>" contained
+syn match rhelpMathSimb   	"\\Nu\>" contained
+syn match rhelpMathSimb   	"\\Xi\>" contained
+syn match rhelpMathSimb   	"\\Omicron\>" contained
+syn match rhelpMathSimb   	"\\Pi\>" contained
+syn match rhelpMathSimb   	"\\Rho\>" contained
+syn match rhelpMathSimb   	"\\Sigma\>" contained
+syn match rhelpMathSimb   	"\\Tau\>" contained
+syn match rhelpMathSimb   	"\\Upsilon\>" contained
+syn match rhelpMathSimb   	"\\Phi\>" contained
+syn match rhelpMathSimb   	"\\Chi\>" contained
+syn match rhelpMathSimb   	"\\Psi\>" contained
+syn match rhelpMathSimb   	"\\Omega\>" contained
 
 " Links {{{1
-syn region rhelpLink matchgroup=rhelpSection start="\\link{" end="}" contained keepend extend
-syn region rhelpLink matchgroup=rhelpSection start="\\link\[.\{-}\]{" end="}" contained keepend extend
-syn region rhelpLink matchgroup=rhelpSection start="\\linkS4class{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\link{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\link\[.\{-}\]{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\linkS4class{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\url{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\href{" end="}" contained keepend extend
+syn region rhelpLink matchgroup=rhelpType start="\\figure{" end="}" contained keepend extend
 
 " Verbatim like {{{1
-if v:version > 703
-  syn region rhelpVerbatim matchgroup=rhelpType start="\\samp{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
-  syn region rhelpVerbatim matchgroup=rhelpType start="\\verb{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
-else
-  syn region rhelpVerbatim matchgroup=rhelpType start="\\samp{" skip='\\\@<!{.\{-}\\\@<!}' end="}" contains=rhelpSpecialChar,rhelpComment
-  syn region rhelpVerbatim matchgroup=rhelpType start="\\verb{" skip='\\\@<!{.\{-}\\\@<!}' end="}" contains=rhelpSpecialChar,rhelpComment
-endif
+syn region rhelpVerbatim matchgroup=rhelpType start="\\samp{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
+syn region rhelpVerbatim matchgroup=rhelpType start="\\verb{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpSpecialChar,rhelpComment
+
+syn region rhelpEquation matchgroup=rhelpType start="\\eqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSimb,rhelpMathOp,rhelpRegion contained keepend extend
+syn region rhelpEquation matchgroup=rhelpType start="\\deqn{" skip='\\\@1<!{.\{-}\\\@1<!}' end="}" contains=rhelpMathSimb,rhelpMathOp,rhelpRegion contained keepend extend
 
 " Type Styles {{{1
 syn match rhelpType		"\\emph\>"
@@ -149,12 +165,11 @@ syn match rhelpType		"\\sQuote\>"
 syn match rhelpType		"\\dQuote\>"
 syn match rhelpType		"\\preformatted\>"
 syn match rhelpType		"\\kbd\>"
-syn match rhelpType		"\\eqn\>"
-syn match rhelpType		"\\deqn\>"
+"syn match rhelpType		"\\eqn\>"
+"syn match rhelpType		"\\deqn\>"
 syn match rhelpType		"\\file\>"
 syn match rhelpType		"\\email\>"
-syn match rhelpType		"\\url\>"
-syn match rhelpType		"\\href\>"
+syn match rhelpType		"\\enc\>"
 syn match rhelpType		"\\var\>"
 syn match rhelpType		"\\env\>"
 syn match rhelpType		"\\option\>"
@@ -164,6 +179,7 @@ syn match rhelpType		"\\renewcommand\>"
 syn match rhelpType		"\\dfn\>"
 syn match rhelpType		"\\cite\>"
 syn match rhelpType		"\\acronym\>"
+syn match rhelpType		"\\doi\>"
 
 " rhelp sections {{{1
 syn match rhelpSection		"\\encoding\>"
@@ -203,9 +219,9 @@ syn match rhelpDelimiter "{\|\[\|(\|)\|\]\|}"
 syn match rhelpComment /%.*$/
 
 " Error {{{1
-syn region rhelpRegion matchgroup=Delimiter start=/(/ matchgroup=Delimiter end=/)/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim
-syn region rhelpRegion matchgroup=Delimiter start=/{/ matchgroup=Delimiter end=/}/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim
-syn region rhelpRegion matchgroup=Delimiter start=/\[/ matchgroup=Delimiter end=/]/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim
+syn region rhelpRegion matchgroup=Delimiter start=/(/ matchgroup=Delimiter end=/)/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim,rhelpEquation
+syn region rhelpRegion matchgroup=Delimiter start=/{/ matchgroup=Delimiter end=/}/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim,rhelpEquation
+syn region rhelpRegion matchgroup=Delimiter start=/\[/ matchgroup=Delimiter end=/]/ contains=@Spell,rhelpCodeSpecial,rhelpComment,rhelpDelimiter,rhelpDots,rhelpFreesec,rhelpFreesubsec,rhelpIdentifier,rhelpKeyword,rhelpLink,rhelpPreProc,rhelpRComment,rhelpRcode,rhelpRegion,rhelpS4method,rhelpSection,rhelpSexpr,rhelpSpecialChar,rhelpString,rhelpType,rhelpVerbatim,rhelpEquation
 syn match rhelpError      /[)\]}]/
 syn match rhelpBraceError /[)}]/ contained
 syn match rhelpCurlyError /[)\]]/ contained
@@ -242,6 +258,8 @@ if version >= 508 || !exists("did_rhelp_syntax_inits")
   HiLink rhelpComment     Comment
   HiLink rhelpRComment    Comment
   HiLink rhelpSpecialChar SpecialChar
+  HiLink rhelpMathSimb    Special
+  HiLink rhelpMathOp      Operator
   delcommand HiLink
 endif 
 
