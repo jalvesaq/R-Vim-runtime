@@ -576,6 +576,12 @@ a <- theta1$A %>%
     { .[1:(nrow(.) - 1), 1:(ncol(.) - 1)] }
 a[a >= thres] <- 1
 
+ds ->
+    ReadJson("db-motion-cache.json") %>%
+    arrange(time) %>%
+    subset(from <= time & time <= to)
+x
+
 y = x &
     x
 y = x |
