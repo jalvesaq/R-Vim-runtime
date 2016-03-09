@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Thu Feb 04, 2016  10:51AM
+" Last Change:	      Mon Mar 07, 2016  07:32PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions is defined in
@@ -167,15 +167,6 @@ syn match rError      "[)\]}]"
 syn match rBraceError "[)}]" contained
 syn match rCurlyError "[)\]]" contained
 syn match rParenError "[\]}]" contained
-
-" Source list of R functions produced by a filetype plugin (if installed)
-if has("nvim")
-  " Nvim-R
-  runtime R/functions.vim
-else
-  " Vim-R-plugin
-  runtime r-plugin/functions.vim
-endif
 
 syn match rDollar display contained "\$"
 syn match rDollar display contained "@"
