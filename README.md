@@ -1,20 +1,16 @@
 # R-Vim-runtime
 
 This repository contains the development versions of R related runtime files
-distributed with both [Vim] and [Neovim]. The files used to be part of the
-[Vim-R-plugin].
+distributed with both [Vim] and [Neovim].
 
 The runtime files are sent to both Vim and Neovim maintainers when the
 accumulated changes become important. That is, if you have a fairly up to date
 Vim or Neovim, you do not need to install the files from this respository.
 
-You may copy the files to your personal *~/.vim* or *~/.nvim* directory, but,
-instead of copying the files and checking for updates manually, you may want
-to use a plugin manager like [Vundle], [Pathogen], [Vim-Plug], [Neobundle], or
-other. Note that the R-Vim-runtime files must be sourced before the
-Vim-R-plugin files, that is, if you still receive the warning about outdated
-runtime after installing these files, try changing the order of Vim-R-plugin
-and R-Vim-runtime.
+You may copy the files to your personal *~/.vim* or *~/.config/nvim*
+directory, but, instead of copying the files and checking for updates
+manually, you may want to use a plugin manager like [Vim-Plug], [Vundle],
+[Neobundle], or other.
 
 In some systems, the first files sourced by Vim and Neovim are from the system
 directories. In this case, if you want up to date runtime files, you have to
@@ -46,7 +42,7 @@ This value will be wrongly highlighted: **`r a_b`**
 Indentation of R code is slow because the algorithm deals with many specific
 cases. If you are interested in either improving the *indent/r.vim* script or
 rewriting it, please, look at the file [indent_test.R]. The current algorithm
-correctly indents the first 574 lines. A new script should be both faster and
+correctly indents the first 604 lines. A new script should be both faster and
 more accurate.
 
 If either Vim or Neovim indents your code wrongly you may get the correct
@@ -95,7 +91,6 @@ when the runtime files were distributed with the [Vim-R-plugin]:
 [Vim]: http://www.vim.org
 [Neovim]: https://github.com/neovim/neovim
 [Vundle]: https://github.com/gmarik/Vundle.vim
-[Pathogen]: https://github.com/tpope/vim-pathogen
 [Vim-Plug]: https://github.com/junegunn/vim-plug
 [Neobundle]: https://github.com/Shougo/neobundle.vim
 [indent_test.R]: https://github.com/jalvesaq/R-Vim-runtime/blob/master/tests/indent_test.R
