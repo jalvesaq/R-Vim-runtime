@@ -2,7 +2,7 @@
 " Language:	Rnoweb
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Apr 14, 2016  07:50PM
+" Last Change:	Fri Apr 15, 2016  10:44PM
 
 
 " Only load this indent file when no other was loaded.
@@ -15,7 +15,7 @@ function! s:NoTeXIndent()
   return indent(line("."))
 endfunction
 
-if &indentexpr == ""
+if &indentexpr == "" || &indentexpr == "GetRnowebIndent"
   let s:TeXIndent = function("s:NoTeXIndent")
 else
   let s:TeXIndent = function(substitute(&indentexpr, "()", "", ""))
