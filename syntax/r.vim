@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Sat Jul 02, 2016  05:39AM
+" Last Change:	      Thu Aug 25, 2016  08:52PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions is defined in
@@ -26,11 +26,7 @@ if exists("b:current_syntax")
   finish
 endif
 
-if has("patch-7.4.1142")
-  syn iskeyword @,48-57,_,.
-else
-  setlocal iskeyword=@,48-57,_,.
-endif
+syn iskeyword @,48-57,_,.
 
 if exists("g:r_syntax_folding") && g:r_syntax_folding
   setlocal foldmethod=syntax
@@ -178,8 +174,6 @@ endif
 if g:R_hi_fun
   " Nvim-R:
   runtime R/functions.vim
-  " Vim-R-plugin:
-  runtime r-plugin/functions.vim
 endif
 
 syn match rDollar display contained "\$"
