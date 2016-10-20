@@ -26,7 +26,11 @@ if exists("b:current_syntax")
   finish
 endif
 
-syn iskeyword @,48-57,_,.
+if has("patch-7.4.1142")
+  syn iskeyword @,48-57,_,.
+else
+  setlocal iskeyword=@,48-57,_,.
+endif
 
 if exists("g:r_syntax_folding") && g:r_syntax_folding
   setlocal foldmethod=syntax
