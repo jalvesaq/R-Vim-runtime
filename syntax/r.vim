@@ -43,18 +43,19 @@ syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
 if g:r_hl_roxygen
-  syn region rOBlock start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\)\@!" contains=rOTitle,rOKeyword,rOExamples,@Spell keepend
-  syn region rOTitle start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\s*$\)\@=" contained contains=rOCommentKey
+  syn region rOBlock start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend
+  syn region rOTitle start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\s*$\)\@=" contained contains=rOCommentKey,rOTitleTag
   syn match rOCommentKey "#\{1,2}'" containedin=rOTitle contained
 
-  syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOKeyword
+  syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag
 
-  syn match rOKeyword contained "@\(param\|return\|name\|rdname\|examples\|example\|include\|docType\)"
-  syn match rOKeyword contained "@\(S3method\|TODO\|aliases\|alias\|assignee\|author\|callGraphDepth\|callGraph\)"
-  syn match rOKeyword contained "@\(callGraphPrimitives\|concept\|exportClass\|exportMethod\|exportPattern\|export\|formals\)"
-  syn match rOKeyword contained "@\(format\|importClassesFrom\|importFrom\|importMethodsFrom\|import\|keywords\|useDynLib\)"
-  syn match rOKeyword contained "@\(method\|noRd\|note\|references\|seealso\|setClass\|slot\|source\|title\|usage\)"
-  syn match rOKeyword contained "@\(family\|template\|templateVar\|description\|details\|inheritParams\|field\)"
+  syn match rOTitleTag contained "@title"
+  syn match rOTag contained "@\(param\|return\|name\|rdname\|examples\|example\|include\|docType\)"
+  syn match rOTag contained "@\(S3method\|TODO\|aliases\|alias\|assignee\|author\|callGraphDepth\|callGraph\)"
+  syn match rOTag contained "@\(callGraphPrimitives\|concept\|exportClass\|exportMethod\|exportPattern\|export\|formals\)"
+  syn match rOTag contained "@\(format\|importClassesFrom\|importFrom\|importMethodsFrom\|import\|keywords\|useDynLib\)"
+  syn match rOTag contained "@\(method\|noRd\|note\|references\|seealso\|setClass\|slot\|source\|title\|usage\)"
+  syn match rOTag contained "@\(family\|template\|templateVar\|description\|details\|inheritParams\|field\)"
 endif
 
 
@@ -244,7 +245,8 @@ hi def link rString      String
 hi def link rStrError    Error
 hi def link rType        Type
 if g:r_hl_roxygen
-  hi def link rOKeyword    Title
+  hi def link rOTitleTag   Operator
+  hi def link rOTag        Operator
   hi def link rOBlock      Comment
   hi def link rOTitle      Title
   hi def link rOCommentKey Comment
