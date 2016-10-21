@@ -47,11 +47,11 @@ syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
 if g:r_hl_roxygen
-  syn region rOBlock start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend
+  syn region rOBlock start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
   syn region rOTitle start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\s*$\)\@=" contained contains=rOCommentKey,rOTitleTag
   syn match rOCommentKey "#\{1,2}'" containedin=rOTitle contained
 
-  syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag
+  syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag fold
 
   syn match rOTitleTag contained "@title"
   syn match rOTag contained "@\(param\|return\|name\|rdname\|examples\|example\|include\|docType\)"
