@@ -1,0 +1,17 @@
+% Highlighting test for checking https://github.com/jalvesaq/R-Vim-runtime/issues/13
+\documentclass{article}
+
+\begin{document}
+
+<<Test>>=
+  print("Hello world")
+@
+
+\subsection{}
+
+<<Test_2>>=
+  print("Hello again")
+@
+
+\end{document}
+
