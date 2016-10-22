@@ -4,7 +4,7 @@
 " Last Change: Tue Jun 28, 2016  10:09AM
 "
 " CONFIGURATION:
-"   To highlight chunk headers as R code, put in your vimrc:
+"   To highlight chunk headers as R code, put in your vimrc (or .config/nvim/init.vim):
 "   let rmd_syn_hl_chunk = 1
 
 if exists("b:current_syntax")
