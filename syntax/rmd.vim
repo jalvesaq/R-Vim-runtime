@@ -4,7 +4,7 @@
 " Last Change: Sat Oct 22, 2016
 "
 " CONFIGURATION:
-"   To highlight chunk headers as R code, put in your vimrc (or .config/nvim/init.vim):
+"   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
 "   let rmd_syn_hl_chunk = 1
 
 if exists("b:current_syntax")
@@ -30,7 +30,7 @@ if exists("b:current_syntax")
   unlet b:current_syntax
 endif
 
-" highlight yaml front matter
+" highlight yaml block commonly used for front matter
 syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
 
 " load all of the r syntax highlighting rules into @R
