@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Tue Jun 28, 2016  10:09AM
+" Last Change: Sat Oct 22, 2016
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (or .config/nvim/init.vim):
@@ -24,6 +24,15 @@ else
   endif
 endif
 
+" load all of the yaml syntax highlighting rules into @yaml
+syntax include @yaml syntax/yaml.vim
+if exists("b:current_syntax")
+  unlet b:current_syntax
+endif
+
+" highlight yaml front matter
+syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
+
 " load all of the r syntax highlighting rules into @R
 syntax include @R syntax/r.vim
 if exists("b:current_syntax")
@@ -43,7 +52,7 @@ syntax region rmdChunk start="^[ \t]*``` *{r.*}$" end="^[ \t]*```$" contains=@R,
 " also match and syntax highlight in-line R code
 syntax match rmdEndInline "`" contained
 syntax match rmdBeginInline "`r " contained
-syntax region rmdrInline start="`r "  end="`" contains=@R,rmdBeginInline,rmdEndInline keepend
+syntax region rmdrInline start="`r "  end="`" contains=@R,rmdBeginInline,rmdEndInline containedin=yamlFlowString keepend
 
 " match slidify special marker
 syntax match rmdSlidifySpecial "\*\*\*"
@@ -74,6 +83,7 @@ endif
 
 syn sync match rmdSyncChunk grouphere rmdChunk "^[ \t]*``` *{r"
 
+hi def link rmdYamlBlockDelim Delim
 hi def link rmdChunkDelim Special
 hi def link rmdBeginInline Special
 hi def link rmdEndInline Special
