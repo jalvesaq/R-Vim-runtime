@@ -6,6 +6,11 @@
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
 "   let rmd_syn_hl_chunk = 1
+"
+" TODO:
+"   - Define sections based on markdown headers to provide syntax folding
+"   - Provide highlighting for rmarkdown citations
+"   - Provide highlighting for rmarkdown parameters in yaml header
 
 if exists("b:current_syntax")
   finish
