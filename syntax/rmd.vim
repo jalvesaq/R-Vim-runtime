@@ -1,22 +1,26 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Oct 22, 2016
+" Last Change: Mon Oct 24, 2016
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
 "   let rmd_syn_hl_chunk = 1
 "
+"   For highlighting pandoc extensions to markdown like citations and TeX and
+"   many other advanced features like folding of markdown sections, it is
+"   recommended to install the vim-pandoc filetype plugin as well as the
+"   vim-pandoc-syntax filetype plugin from https://github.com/vim-pandoc.
+"
 " TODO:
-"   - Define sections based on markdown headers to provide syntax folding
-"   - Provide highlighting for rmarkdown citations
 "   - Provide highlighting for rmarkdown parameters in yaml header
 
 if exists("b:current_syntax")
   finish
 endif
 
-" load all of pandoc info
+" load all of pandoc info, e.g. from
+" https://github.com/vim-pandoc/vim-pandoc-syntax
 runtime syntax/pandoc.vim
 if exists("b:current_syntax")
   let rmdIsPandoc = 1
@@ -27,16 +31,16 @@ else
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-endif
 
-" load all of the yaml syntax highlighting rules into @yaml
-syntax include @yaml syntax/yaml.vim
-if exists("b:current_syntax")
-  unlet b:current_syntax
-endif
+  " load all of the yaml syntax highlighting rules into @yaml
+  syntax include @yaml syntax/yaml.vim
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
 
-" highlight yaml block commonly used for front matter
-syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
+  " highlight yaml block commonly used for front matter
+  syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
+endif
 
 " load all of the r syntax highlighting rules into @R
 syntax include @R syntax/r.vim
