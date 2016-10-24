@@ -59,9 +59,7 @@ syntax match rmdChunkDelim "^[ \t]*```$" contained
 syntax region rmdChunk start="^[ \t]*``` *{r.*}$" end="^[ \t]*```$" contains=@R,rmdChunkDelim keepend fold
 
 " also match and syntax highlight in-line R code
-syntax match rmdEndInline "`" contained
-syntax match rmdBeginInline "`r " contained
-syntax region rmdrInline start="`r "  end="`" contains=@R,rmdBeginInline,rmdEndInline containedin=yamlFlowString keepend
+syntax region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=yamlFlowString keepend
 
 " match slidify special marker
 syntax match rmdSlidifySpecial "\*\*\*"
@@ -94,8 +92,7 @@ syn sync match rmdSyncChunk grouphere rmdChunk "^[ \t]*``` *{r"
 
 hi def link rmdYamlBlockDelim Delim
 hi def link rmdChunkDelim Special
-hi def link rmdBeginInline Special
-hi def link rmdEndInline Special
+hi def link rmdInlineDelim Special
 hi def link rmdBlockQuote Comment
 hi def link rmdSlidifySpecial Special
 
