@@ -59,7 +59,10 @@ syntax match rmdChunkDelim "^[ \t]*```$" contained
 syntax region rmdChunk start="^[ \t]*``` *{r.*}$" end="^[ \t]*```$" contains=@R,rmdChunkDelim keepend fold
 
 " also match and syntax highlight in-line R code
-syntax region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=yamlFlowString keepend
+syntax region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
+" I was not able to highlight rmdrInline inside a pandocLaTeXCommand, although
+" highlighting works within pandocLaTeXRegion and yamlFlowString. 
+syntax cluster texMathZoneGroup add=rmdrInline
 
 " match slidify special marker
 syntax match rmdSlidifySpecial "\*\*\*"
@@ -72,8 +75,6 @@ if rmdIsPandoc == 0
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  " Extend cluster
-  syn cluster texMathZoneGroup add=rmdrInline
   " Inline
   syntax match rmdLaTeXInlDelim "\$"
   syntax match rmdLaTeXInlDelim "\\\$"
