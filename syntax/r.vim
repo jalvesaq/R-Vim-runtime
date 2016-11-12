@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Thu Aug 25, 2016  08:52PM
+" Last Change:	      Thu Nov 12, 2016
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions is defined in
@@ -54,12 +54,64 @@ if g:r_hl_roxygen
   syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag fold
 
   syn match rOTitleTag contained "@title"
-  syn match rOTag contained "@\(param\|return\|name\|rdname\|examples\|example\|include\|docType\)"
-  syn match rOTag contained "@\(S3method\|TODO\|aliases\|alias\|assignee\|author\|callGraphDepth\|callGraph\)"
-  syn match rOTag contained "@\(callGraphPrimitives\|concept\|exportClass\|exportMethod\|exportPattern\|export\|formals\)"
-  syn match rOTag contained "@\(format\|importClassesFrom\|importFrom\|importMethodsFrom\|import\|keywords\|useDynLib\)"
-  syn match rOTag contained "@\(method\|noRd\|note\|references\|seealso\|setClass\|slot\|source\|title\|usage\)"
-  syn match rOTag contained "@\(family\|template\|templateVar\|description\|details\|inheritParams\|field\)"
+
+  " rOTag list generated from the lists in 
+  " https://github.com/klutometis/roxygen/R/rd.R and 
+  " https://github.com/klutometis/roxygen/R/namespace.R
+  " using s/^    \([A-Za-z0-9]*\) = .*/  syn match rOTag contained "@\1"/
+  
+  " rd.R
+  syn match rOTag contained "@aliases"
+  syn match rOTag contained "@author"
+  syn match rOTag contained "@backref"
+  syn match rOTag contained "@concept"
+  syn match rOTag contained "@describeIn"
+  syn match rOTag contained "@description"
+  syn match rOTag contained "@details"
+  syn match rOTag contained "@docType"
+  syn match rOTag contained "@encoding"
+  syn match rOTag contained "@evalRd"
+  syn match rOTag contained "@example"
+  syn match rOTag contained "@examples"
+  syn match rOTag contained "@family"
+  syn match rOTag contained "@field"
+  syn match rOTag contained "@format"
+  syn match rOTag contained "@inherit"
+  syn match rOTag contained "@inheritParams"
+  syn match rOTag contained "@inheritDotParams"
+  syn match rOTag contained "@inheritSection"
+  syn match rOTag contained "@keywords"
+  syn match rOTag contained "@method"
+  syn match rOTag contained "@name"
+  syn match rOTag contained "@md"
+  syn match rOTag contained "@noMd"
+  syn match rOTag contained "@noRd"
+  syn match rOTag contained "@note"
+  syn match rOTag contained "@param"
+  syn match rOTag contained "@rdname"
+  syn match rOTag contained "@rawRd"
+  syn match rOTag contained "@references"
+  syn match rOTag contained "@return"
+  syn match rOTag contained "@section"
+  syn match rOTag contained "@seealso"
+  syn match rOTag contained "@slot"
+  syn match rOTag contained "@source"
+  syn match rOTag contained "@template"
+  syn match rOTag contained "@templateVar"
+  syn match rOTag contained "@title"
+  syn match rOTag contained "@usage"
+  " namespace.R
+  syn match rOTag contained "@export"
+  syn match rOTag contained "@exportClass"
+  syn match rOTag contained "@exportMethod"
+  syn match rOTag contained "@exportPattern"
+  syn match rOTag contained "@import"
+  syn match rOTag contained "@importClassesFrom"
+  syn match rOTag contained "@importFrom"
+  syn match rOTag contained "@importMethodsFrom"
+  syn match rOTag contained "@rawNamespace"
+  syn match rOTag contained "@S3method"
+  syn match rOTag contained "@useDynLib"
 endif
 
 
