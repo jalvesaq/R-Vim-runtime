@@ -47,19 +47,38 @@ syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
 if g:r_hl_roxygen
-  syn region rOBlock start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
-  syn region rOTitle start="^\s*\n#\{1,2}' " start="\%^#\{1,2}' " end="^\(#\{1,2}'\s*$\)\@=" contained contains=rOCommentKey,rOTitleTag
+  " A roxygen block can start at the beginning of a file (first version) and
+  " after a blank line (second version). It ends when a line does not contain
+  " a roxygen comment
+  "
+  " When a roxygen block has a title, there are one or more lines (as little
+  " as possible are matched) starting with a roxygen comment, followed by a
+  " line with nothing but a roxygen comment and whitespace.
+  syn region rOBlock start="\%^\(\s*#\{1,2}' .*\n\)\{-1,}\s*#\{1,2}'\s*$" end="^\s*\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
+  syn region rOBlock start="^\s*\n\(\s*#\{1,2}' .*\n\)\{-1,}\s*#\{1,2}'\s*$" end="^\s*\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
+
+  " A roxygen block containing the @rdname tag does not have to have a title
+  " and therefore does not have to have an empty roxygen comment line. This is
+  " therefore an alternative way to define a valid roxygen block often seen
+  " in practice, compare https://github.com/jalvesaq/Nvim-R/issues/84
+  syn region rOBlock start="\%^\(\s*#\{1,2}' .*\n\)\{-}\s*#\{1,2}' @rdname" end="^\s*\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
+  syn region rOBlock start="^\s*\n\(\s*#\{1,2}' .*\n\)\{-}\s*#\{1,2}' @rdname" end="^\s*\(#\{1,2}'\)\@!" contains=rOTitle,rOTag,rOExamples,@Spell keepend fold
+
+  " Title at beginning of file (first version) or after an empty line (second
+  " version)
+  syn match rOTitle "\%^\(\s*#\{1,2}' .*\n\)\{-1,}\s*#\{1,2}'\s*$" contained contains=rOCommentKey,rOTitleTag
+  syn match rOTitle "^\s*\n\(\s*#\{1,2}' .*\n\)\{-1,}\s*#\{1,2}'\s*$" contained contains=rOCommentKey,rOTitleTag
   syn match rOCommentKey "#\{1,2}'" containedin=rOTitle contained
 
   syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag fold
 
   syn match rOTitleTag contained "@title"
 
-  " rOTag list generated from the lists in 
-  " https://github.com/klutometis/roxygen/R/rd.R and 
+  " rOTag list generated from the lists in
+  " https://github.com/klutometis/roxygen/R/rd.R and
   " https://github.com/klutometis/roxygen/R/namespace.R
   " using s/^    \([A-Za-z0-9]*\) = .*/  syn match rOTag contained "@\1"/
-  
+
   " rd.R
   syn match rOTag contained "@aliases"
   syn match rOTag contained "@author"
