@@ -45,3 +45,6 @@ lessbar_ = function() …
 #' This is marked as a roxygen block but does not contain any further roxygen
 #' markup, and is therefore just highlighted as a comment.
 x <- x
+
+#' A function with just a title, nothing else.
+small_function = function () TRUE
