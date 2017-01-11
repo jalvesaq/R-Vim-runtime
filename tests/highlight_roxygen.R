@@ -46,21 +46,5 @@ lessbar_ = function() …
 #' markup, and is therefore just highlighted as a comment.
 x <- x
 
-#' This is a title of a Roxygen block without following newline
-#' @param foo this describes parameter foo
-#'
-#' Description
-f = function (foo) f
-
-#' Title
-#' @details Likewise, this is no longer part of the title.
-#'
-#' More description. Weird Roxygen layout, but legal.
-g = function () f
-
 #' A function with just a title, nothing else.
 small_function = function () TRUE
-
-#' Another function with a title
-#' @details The function's description. No longer title.
-another_small_function = function () FALSE
