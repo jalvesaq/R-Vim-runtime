@@ -1,6 +1,3 @@
-# Test file for roxygen syntax
-# Authors: Johannes Ranke, Konrad Rudolph and others (see comments).
-
 #' Title at the beginning of the file
 #'
 #' This is the description.
@@ -16,6 +13,9 @@ foo = function() {
   x <- 3
   return(x)
 }
+
+# This is a test file for roxygen syntax
+# Authors: Johannes Ranke, Konrad Rudolph and others (see comments).
 
 #' A title after some whitespace
 #'
@@ -46,19 +46,19 @@ lessbar = function() …
 lessbar_ = function() …
 
 #' A function with just a title, nothing else.
-small_function = function () TRUE
+small_function = function() TRUE
 
 #' A function with just a title, containing, a literal at sign
 #' @@ the beginning of the second line as a special case
-small_function = function () TRUE
+small_function = function() TRUE
 
 #' Another small function, but exported. If there is no empty roxygen line
 #' after this text, it is not recognized as a title, although roxygen will
 #' treat it as a title if there is no @rdname or @describeIn tag.
 #' @export
-small_function = function () TRUE
+small_function = function() TRUE
 
-# The following roxygen code was taken from the documentation
+# The following roxygen block was taken from the documentation
 # of roxygen::collate_roclet().
 
 #' `example-a.R', `example-b.R' and `example-c.R' reside
@@ -87,4 +87,4 @@ foobar.character <- function(x) paste0(x[1], "-", x[length(x)])
 #' The above is \emph{not} a title because the Roxygen block contains an
 #' \code{@rdname} designation.
 #' @rdname arguments
-paragraph_break = function () {}
+paragraph_break = function() {}
