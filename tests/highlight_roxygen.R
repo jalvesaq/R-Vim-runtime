@@ -1,3 +1,6 @@
+# Test file for roxygen syntax
+# Authors: Johannes Ranke, Konrad Rudolph and others (see comments).
+
 #' Title at the beginning of the file
 #'
 #' This is the description.
@@ -29,8 +32,8 @@ bar = function() …
 morebar = function() …
 
 #' \code{lessbar} works somehow like \code{morebar} but differently
-#' and with an additional parameter x. As this goes into the 
-#' documentation of \code{morebar} due to the rdname tag, this 
+#' and with an additional parameter x. As this goes into the
+#' documentation of \code{morebar} due to the rdname tag, this
 #' block does not have a title.
 #' @param x Another parameter
 #' @rdname morebar
@@ -42,9 +45,39 @@ lessbar = function() …
 #' @export
 lessbar_ = function() …
 
-#' This is marked as a roxygen block but does not contain any further roxygen
-#' markup, and is therefore just highlighted as a comment.
-x <- x
-
 #' A function with just a title, nothing else.
 small_function = function () TRUE
+
+#' A function with just a title, containing, a literal at sign
+#' @@ the beginning of the second line as a special case
+small_function = function () TRUE
+
+#' Another small function, but exported. If there is no empty roxygen line
+#' after this text, it is not recognized as a title, although roxygen will
+#' treat it as a title if there is no @rdname or @describeIn tag.
+#' @export
+small_function = function () TRUE
+
+# The following roxygen code was taken from the documentation
+# of roxygen::collate_roclet().
+
+#' `example-a.R', `example-b.R' and `example-c.R' reside
+#' in the `example' directory, with dependencies
+#' a -> {b, c}. This is `example-a.R'.
+#' @include example-b.R
+#' @include example-c.R
+NULL
+
+# The following example is from the roxygen vignette
+# https://cran.r-project.org/web/packages/roxygen2/vignettes/rd.html
+
+#' Foo bar generic
+#'
+#' @param x Object to foo.
+foobar <- function(x) UseMethod("x")
+
+#' @describeIn foobar Difference between the mean and the median
+foobar.numeric <- function(x) abs(mean(x) - median(x))
+
+#' @describeIn foobar First and last values pasted together in a string.
+foobar.character <- function(x) paste0(x[1], "-", x[length(x)])
