@@ -86,5 +86,6 @@ foobar.character <- function(x) paste0(x[1], "-", x[length(x)])
 #'
 #' The above is \emph{not} a title because the Roxygen block contains an
 #' \code{@rdname} designation.
+#'
 #' @rdname arguments
 paragraph_break = function() {}
