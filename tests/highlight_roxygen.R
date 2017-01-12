@@ -81,3 +81,10 @@ foobar.numeric <- function(x) abs(mean(x) - median(x))
 
 #' @describeIn foobar First and last values pasted together in a string.
 foobar.character <- function(x) paste0(x[1], "-", x[length(x)])
+
+#' A description that contains a newline as a paragraph break.
+#'
+#' The above is \emph{not} a title because the Roxygen block contains an
+#' \code{@rdname} designation.
+#' @rdname arguments
+paragraph_break = function () {}
