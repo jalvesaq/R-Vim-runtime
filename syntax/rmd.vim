@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Mon Oct 24, 2016
+" Last Change: Sat Jan 28, 2017  10:06PM
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
@@ -42,21 +42,37 @@ else
   syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
 endif
 
-" load all of the r syntax highlighting rules into @R
-syntax include @R syntax/r.vim
-if exists("b:current_syntax")
-  unlet b:current_syntax
+if !exists("g:rmd_syn_langs")
+  let g:rmd_syn_langs = ["r"]
+else
+  let s:hasr = 0
+  for s:lng in g:rmd_syn_langs
+    if s:lng == "r"
+      let s:hasr = 1
+    endif
+  endfor
+  if s:hasr == 0
+    let g:rmd_syn_langs += ["r"]
+  endif
 endif
 
-if exists("g:rmd_syn_hl_chunk")
-  " highlight R code inside chunk header
-  syntax match rmdChunkDelim "^[ \t]*```{r" contained
-  syntax match rmdChunkDelim "}$" contained
-else
-  syntax match rmdChunkDelim "^[ \t]*```{r.*}$" contained
-endif
-syntax match rmdChunkDelim "^[ \t]*```$" contained
-syntax region rmdChunk start="^[ \t]*``` *{r.*}$" end="^[ \t]*```$" contains=@R,rmdChunkDelim keepend fold
+for s:lng in g:rmd_syn_langs
+  exe 'syntax include @' . toupper(s:lng) . ' syntax/'. s:lng . '.vim'
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
+  exe 'syntax region rmd' . toupper(s:lng) . 'Chunk start="^[ \t]*``` *{\(' . s:lng . '\|r.*engine\s*=\s*["' . "']" . s:lng . "['" . '"]\).*}$" end="^[ \t]*```$" contains=@' . toupper(s:lng) . ',rmd' . toupper(s:lng) . 'ChunkDelim keepend fold'
+
+  if exists("g:rmd_syn_hl_chunk") && s:lng == "r"
+    " highlight R code inside chunk header
+    syntax match rmdRChunkDelim "^[ \t]*```{r" contained
+    syntax match rmdRChunkDelim "}$" contained
+  else
+    exe 'syntax match rmd' . toupper(s:lng) . 'ChunkDelim "^[ \t]*```{\(' . s:lng . '\|r.*engine\s*=\s*["' . "']" . s:lng . "['" . '"]\).*}$" contained'
+  endif
+  exe 'syntax match rmd' . toupper(s:lng) . 'ChunkDelim "^[ \t]*```$" contained'
+endfor
+
 
 " also match and syntax highlight in-line R code
 syntax region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
@@ -82,19 +98,24 @@ if rmdIsPandoc == 0
   " Region
   syntax match rmdLaTeXRegDelim "\$\$" contained
   syntax match rmdLaTeXRegDelim "\$\$latex$" contained
-  syntax region rmdLaTeXRegion start="^\$\$" skip="\\\$" end="\$\$$" contains=@LaTeX,rmdLaTeXSt,rmdLaTeXRegDelim keepend
-  syntax region rmdLaTeXRegion2 start="^\\\[" end="\\\]" contains=@LaTeX,rmdLaTeXSt,rmdLaTeXRegDelim keepend
+  syntax match rmdLaTeXSt "\\[a-zA-Z]\+"
+  syntax region rmdLaTeXRegion start="^\$\$" skip="\\\$" end="\$\$$" contains=@LaTeX,rmdLaTeXRegDelim keepend
+  syntax region rmdLaTeXRegion2 start="^\\\[" end="\\\]" contains=@LaTeX,rmdLaTeXRegDelim keepend
+  hi def link rmdBlockQuote Comment
   hi def link rmdLaTeXSt Statement
   hi def link rmdLaTeXInlDelim Special
   hi def link rmdLaTeXRegDelim Special
 endif
 
-syn sync match rmdSyncChunk grouphere rmdChunk "^[ \t]*``` *{r"
+for s:lng in g:rmd_syn_langs
+  exe 'syn sync match rmd' . toupper(s:lng) . 'SyncChunk grouphere rmd' . toupper(s:lng) . 'Chunk /^[ \t]*``` *{\(' . s:lng . '\|r.*engine\s*=\s*["' . "']" . s:lng . "['" . '"]\)/'
+endfor
 
 hi def link rmdYamlBlockDelim Delim
-hi def link rmdChunkDelim Special
+for s:lng in g:rmd_syn_langs
+  exe 'hi def link rmd' . toupper(s:lng) . 'ChunkDelim Special'
+endfor
 hi def link rmdInlineDelim Special
-hi def link rmdBlockQuote Comment
 hi def link rmdSlidifySpecial Special
 
 let b:current_syntax = "rmd"
