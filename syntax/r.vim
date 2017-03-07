@@ -5,10 +5,10 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Thu Nov 12, 2016
+" Last Change:	      Sat Feb 25, 2017  09:42PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
-" NOTE: The highlighting of R functions is defined in
+" NOTE: The highlighting of R functions might be defined in
 " runtime files created by a filetype plugin, if installed.
 "
 " CONFIGURATION:
@@ -259,12 +259,28 @@ syn match rBraceError "[)}]" contained
 syn match rCurlyError "[)\]]" contained
 syn match rParenError "[\]}]" contained
 
-if !exists("g:R_hi_fun")
-  let g:R_hi_fun = 1
+" Use Nvim-R to highlight functions dynamically if it is installed
+if !exists("g:r_syntax_fun_pattern")
+  let s:ff = split(substitute(globpath(&rtp, "R/functions.vim"), "functions.vim", "", "g"), "\n")
+  if len(s:ff) > 0
+    let g:r_syntax_fun_pattern = 0
+  else
+    let g:r_syntax_fun_pattern = 1
+  endif
 endif
-if g:R_hi_fun
-  " Nvim-R:
-  runtime R/functions.vim
+
+" Only use Nvim-R to highlight functions if they should not be highlighted
+" according to a generic pattern
+if g:r_syntax_fun_pattern == 1
+  syn match rFunction '[0-9a-zA-Z_\.]\+\s*\ze('
+else
+  if !exists("g:R_hi_fun")
+    let g:R_hi_fun = 1
+  endif
+  if g:R_hi_fun
+    " Nvim-R:
+    runtime R/functions.vim
+  endif
 endif
 
 syn match rDollar display contained "\$"
