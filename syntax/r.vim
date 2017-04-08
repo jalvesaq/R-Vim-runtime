@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Sat Feb 25, 2017  09:42PM
+" Last Change:	      Sat Apr 08, 2017  07:01PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions might be defined in
@@ -18,7 +18,7 @@
 "
 "   ROxygen highlighting can be turned off by
 "
-"      let r_hl_roxygen = 0
+"      let r_syntax_hl_roxygen = 0
 "
 " Some lines of code were borrowed from Zhuojun Chen.
 
@@ -32,11 +32,19 @@ else
   setlocal iskeyword=@,48-57,_,.
 endif
 
+" The variables g:r_hl_roxygen and g:r_syn_minlines were renamed on April 8, 2017.
+if exists("g:r_hl_roxygen")
+  let g:r_syntax_hl_roxygen = g:r_hl_roxygen
+endif
+if exists("g:r_syn_minlines")
+  let g:r_syntax_minlines = g:r_syn_minlines
+endif
+
 if exists("g:r_syntax_folding") && g:r_syntax_folding
   setlocal foldmethod=syntax
 endif
-if !exists("g:r_hl_roxygen")
-  let g:r_hl_roxygen = 1
+if !exists("g:r_syntax_hl_roxygen")
+  let g:r_syntax_hl_roxygen = 1
 endif
 
 syn case match
@@ -46,7 +54,7 @@ syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\):"
 syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
-if g:r_hl_roxygen
+if g:r_syntax_hl_roxygen
   " A roxygen block can start at the beginning of a file (first version) and
   " after a blank line (second version). It ends when a line that does not
   " contain a roxygen comment. In the following comments, any line containing
@@ -312,8 +320,8 @@ if &filetype == "rhelp"
   syn match rhSection "\\dontrun\>"
 endif
 
-if exists("r_syn_minlines")
-  exe "syn sync minlines=" . r_syn_minlines
+if exists("r_syntax_minlines")
+  exe "syn sync minlines=" . r_syntax_minlines
 else
   syn sync minlines=40
 endif
@@ -350,7 +358,7 @@ hi def link rStatement   Statement
 hi def link rString      String
 hi def link rStrError    Error
 hi def link rType        Type
-if g:r_hl_roxygen
+if g:r_syntax_hl_roxygen
   hi def link rOTitleTag   Operator
   hi def link rOTag        Operator
   hi def link rOTitleBlock Title
@@ -360,7 +368,6 @@ if g:r_hl_roxygen
   hi def link rOCommentKey Comment
   hi def link rOExamples   SpecialComment
 endif
-
 
 let b:current_syntax="r"
 
