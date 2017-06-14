@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Mon Jun 12, 2017  11:02PM
+" Last Change:	      Wed Jun 14, 2017  10:22AM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions might be defined in
@@ -306,7 +306,7 @@ syn keyword rType array category character complex double function integer list 
 
 " Name of object with spaces
 if &filetype != "rmd" && &filetype != "rrst"
-  syn region rNameWSpace start="`" end="`"
+  syn region rNameWSpace start="`" end="`" contains=rSpaceFun
 endif
 
 if &filetype == "rhelp"
@@ -336,6 +336,7 @@ hi def link rDollar      SpecialChar
 hi def link rError       Error
 hi def link rFloat       Float
 hi def link rFunction    Function
+hi def link rSpaceFun    Function
 hi def link rHelpIdent   Identifier
 hi def link rhPreProc    PreProc
 hi def link rhSection    PreCondit
