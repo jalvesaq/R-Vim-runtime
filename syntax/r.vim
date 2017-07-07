@@ -42,7 +42,7 @@ endif
 syn case match
 
 " Comment
-syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\):"
+syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\).*:"
 syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
 
 " Roxygen
