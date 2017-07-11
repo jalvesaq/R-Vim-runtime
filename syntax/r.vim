@@ -51,7 +51,10 @@ syn case match
 
 " Comment
 syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\):"
-syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
+syn match rTodoParen contained "\(BUG\|FIXME\|NOTE\|TODO\)\s*(.\{-})\s*:" contains=rTodoKeyw,rTodoInfo transparent
+syn keyword rTodoKeyw BUG FIXME NOTE TODO contained
+syn match rTodoInfo "(\zs.\{-}\ze)" contained
+syn match rComment contains=@Spell,rCommentTodo,rTodoParen,rOBlock "#.*"
 
 " Roxygen
 if g:r_syntax_hl_roxygen
@@ -256,6 +259,7 @@ if exists("g:r_syntax_folding")
   syn region rRegion matchgroup=Delimiter start=/(/ matchgroup=Delimiter end=/)/ transparent contains=ALLBUT,rError,rBraceError,rCurlyError fold
   syn region rRegion matchgroup=Delimiter start=/{/ matchgroup=Delimiter end=/}/ transparent contains=ALLBUT,rError,rBraceError,rParenError fold
   syn region rRegion matchgroup=Delimiter start=/\[/ matchgroup=Delimiter end=/]/ transparent contains=ALLBUT,rError,rCurlyError,rParenError fold
+  syn region rSection matchgroup=Title start=/^#.*[-=#]\{4,}/ end=/^#.*[-=#]\{4,}/ms=s-2,me=s-1 transparent contains=ALL fold
 else
   syn region rRegion matchgroup=Delimiter start=/(/ matchgroup=Delimiter end=/)/ transparent contains=ALLBUT,rError,rBraceError,rCurlyError
   syn region rRegion matchgroup=Delimiter start=/{/ matchgroup=Delimiter end=/}/ transparent contains=ALLBUT,rError,rBraceError,rParenError
@@ -326,7 +330,10 @@ hi def link rAssign      Statement
 hi def link rBoolean     Boolean
 hi def link rBraceError  Error
 hi def link rComment     Comment
+hi def link rTodoParen   Comment
+hi def link rTodoInfo    SpecialComment
 hi def link rCommentTodo Todo
+hi def link rTodoKeyw    Todo
 hi def link rComplex     Number
 hi def link rConditional Conditional
 hi def link rConstant    Constant
