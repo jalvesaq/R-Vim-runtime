@@ -42,8 +42,11 @@ endif
 syn case match
 
 " Comment
-syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\).*:"
-syn match rComment contains=@Spell,rCommentTodo,rOBlock "#.*"
+syn match rCommentTodo contained "\(BUG\|FIXME\|NOTE\|TODO\):"
+syn match rTodoParen contained "\(BUG\|FIXME\|NOTE\|TODO\)\s*(.\{-})\s*:" contains=rTodoKeyw,rTodoInfo transparent
+syn keyword rTodoKeyw BUG FIXME NOTE TODO contained
+syn match rTodoInfo "(\zs.\{-}\ze)" contained
+syn match rComment contains=@Spell,rCommentTodo,rTodoParen,rOBlock "#.*"
 
 " Roxygen
 if g:r_hl_roxygen
@@ -324,7 +327,10 @@ hi def link rAssign      Statement
 hi def link rBoolean     Boolean
 hi def link rBraceError  Error
 hi def link rComment     Comment
+hi def link rTodoParen   Comment
+hi def link rTodoInfo    SpecialComment
 hi def link rCommentTodo Todo
+hi def link rTodoKeyw    Todo
 hi def link rComplex     Number
 hi def link rConditional Conditional
 hi def link rConstant    Constant
