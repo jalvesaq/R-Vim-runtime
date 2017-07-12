@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Jan 28, 2017  10:06PM
+" Last Change: Tue Jul 11, 2017  11:31PM
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
@@ -88,6 +88,7 @@ if rmdIsPandoc == 0
   syn match rmdBlockQuote /^\s*>.*\n\(.*\n\@<!\n\)*/ skipnl
   " LaTeX
   syntax include @LaTeX syntax/tex.vim
+  syn iskeyword @,48-57,_,.
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
