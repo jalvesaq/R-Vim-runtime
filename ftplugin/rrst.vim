@@ -2,7 +2,7 @@
 " Language: reStructuredText documentation format with R code
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Apr 07, 2015  04:38PM
+" Last Change:	Tue Oct 31, 2017  10:54AM
 " Original work by Alex Zvoleff
 
 " Only do this when not yet done for this buffer
@@ -20,6 +20,21 @@ setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
 setlocal formatoptions+=tcqln
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 setlocal iskeyword=@,48-57,_,.
+
+function! FormatRrst()
+  if search('^\.\. {r', "bncW") > search('^\.\. \.\.$', "bncW")
+    setlocal comments=:#',:###,:##,:#
+  else
+    setlocal comments=fb:*,fb:-,fb:+,n:>
+  endif
+  return 1
+endfunction
+
+" If you do not want 'comments' dynamically defined, put in your vimrc:
+" let g:rrst_dynamic_comments = 0
+if !exists("g:rrst_dynamic_comments") || (exists("g:rrst_dynamic_comments") && g:rrst_dynamic_comments == 1)
+  setlocal formatexpr=FormatRrst()
+endif
 
 if has("gui_win32") && !exists("b:browsefilter")
   let b:browsefilter = "R Source Files (*.R *.Rnw *.Rd *.Rmd *.Rrst)\t*.R;*.Rnw;*.Rd;*.Rmd;*.Rrst\n" .
