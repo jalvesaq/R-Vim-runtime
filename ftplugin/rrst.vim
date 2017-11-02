@@ -2,7 +2,7 @@
 " Language: reStructuredText documentation format with R code
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Oct 31, 2017  10:54AM
+" Last Change:	Wed Nov 01, 2017  10:47PM
 " Original work by Alex Zvoleff
 
 " Only do this when not yet done for this buffer
@@ -16,7 +16,8 @@ let b:did_ftplugin = 1
 let s:cpo_save = &cpo
 set cpo&vim
 
-setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
+setlocal comments=fb:*,fb:-,fb:+,n:>
+setlocal commentstring=#\ %s
 setlocal formatoptions+=tcqln
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 setlocal iskeyword=@,48-57,_,.

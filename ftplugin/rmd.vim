@@ -2,7 +2,7 @@
 " Language: R Markdown file
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Oct 31, 2017  10:54AM
+" Last Change:	Wed Nov 01, 2017  10:48PM
 " Original work by Alex Zvoleff (adjusted from R help for rmd by Michel Kuhlmann)
 
 " Only do this when not yet done for this buffer
@@ -22,7 +22,8 @@ if exists("*CompleteR")
   set omnifunc=CompleteR
 endif
 
-setlocal comments=fb:*,fb:-,fb:+,n:> commentstring=>\ %s
+setlocal comments=fb:*,fb:-,fb:+,n:>
+setlocal commentstring=#\ %s
 setlocal formatoptions+=tcqln
 setlocal formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\|^\\s*[-*+]\\s\\+
 setlocal iskeyword=@,48-57,_,.
