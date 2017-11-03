@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Jul 15, 2017  11:08PM
+" Last Change: Fri Nov 03, 2017  09:51AM
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
@@ -39,7 +39,7 @@ else
   endif
 
   " highlight yaml block commonly used for front matter
-  syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---" matchgroup=rmdYamlBlockDelim end="^---" contains=@yaml keepend fold
+  syntax region rmdYamlBlock matchgroup=rmdYamlBlockDelim start="^---$" matchgroup=rmdYamlBlockDelim end="^\(\.\.\.\|---\)$" contains=@yaml keepend fold
 endif
 
 if !exists("g:rmd_syn_langs")
@@ -116,12 +116,12 @@ for s:lng in g:rmd_syn_langs
   exe 'syn sync match rmd' . toupper(s:lng) . 'SyncChunk grouphere rmd' . toupper(s:lng) . 'Chunk /^[ \t]*``` *{\(' . s:lng . '\|r.*engine\s*=\s*["' . "']" . s:lng . "['" . '"]\)/'
 endfor
 
-hi def link rmdYamlBlockDelim Delim
+hi def link rmdYamlBlockDelim Delimiter
 for s:lng in g:rmd_syn_langs
   exe 'hi def link rmd' . toupper(s:lng) . 'ChunkDelim Special'
 endfor
-hi def link rmdInlineDelim Special
-hi def link rmdSlidifySpecial Special
+hi def link rmdInlineDelim Delimiter
+hi def link rmdSlidifySpecial Delimiter
 
 let b:current_syntax = "rmd"
 
