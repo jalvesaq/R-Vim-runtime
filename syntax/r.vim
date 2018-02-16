@@ -94,7 +94,7 @@ if g:r_syntax_hl_roxygen
   syn match rOTitle "^\s*\n\(\s*#\{1,2}' .*\n\)\{-1,}\s*#\{1,2}'\s*$" contained contains=rOCommentKey,rOTitleTag
   syn match rOTitleTag contained "@title"
 
-  syn match rOCommentKey "#\{1,2}'" contained
+  syn match rOCommentKey "^\s*#\{1,2}'" contained
   syn region rOExamples start="^#\{1,2}' @examples.*"rs=e+1,hs=e+1 end="^\(#\{1,2}' @.*\)\@=" end="^\(#\{1,2}'\)\@!" contained contains=rOTag fold
 
   " rOTag list generated from the lists in
