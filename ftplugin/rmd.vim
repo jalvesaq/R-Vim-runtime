@@ -2,7 +2,7 @@
 " Language: R Markdown file
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Wed Nov 01, 2017  10:48PM
+" Last Change:	Wed Jun 06, 2018  09:38AM
 " Original work by Alex Zvoleff (adjusted from R help for rmd by Michel Kuhlmann)
 
 " Only do this when not yet done for this buffer
@@ -11,16 +11,6 @@ if exists("b:did_ftplugin")
 endif
 
 runtime! ftplugin/html.vim ftplugin/html_*.vim ftplugin/html/*.vim
-
-" Nvim-R plugin needs this
-if exists("*CompleteR")
-  if &omnifunc == "CompleteR"
-    let b:rplugin_nonr_omnifunc = ""
-  else
-    let b:rplugin_nonr_omnifunc = &omnifunc
-  endif
-  set omnifunc=CompleteR
-endif
 
 setlocal comments=fb:*,fb:-,fb:+,n:>
 setlocal commentstring=#\ %s
