@@ -2,7 +2,7 @@
 " Language: R Markdown file
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Wed Jun 06, 2018  09:38AM
+" Last Change:	Sun Jul 22, 2018  06:51PM
 " Original work by Alex Zvoleff (adjusted from R help for rmd by Michel Kuhlmann)
 
 " Only do this when not yet done for this buffer
@@ -10,7 +10,9 @@ if exists("b:did_ftplugin")
   finish
 endif
 
-runtime! ftplugin/html.vim ftplugin/html_*.vim ftplugin/html/*.vim
+if exists('g:rmd_include_html') && g:rmd_include_html
+  runtime! ftplugin/html.vim ftplugin/html_*.vim ftplugin/html/*.vim
+endif
 
 setlocal comments=fb:*,fb:-,fb:+,n:>
 setlocal commentstring=#\ %s
