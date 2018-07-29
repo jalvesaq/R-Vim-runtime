@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Jul 29, 2018  01:03AM
+" Last Change: Sun Jul 29, 2018  11:03AM
 "
 " CONFIGURATION:
 "   To highlight chunk headers as R code, put in your vimrc (e.g. .config/nvim/init.vim):
@@ -108,11 +108,11 @@ if rmdIsPandoc == 0
   syntax region rmdLaTeXRegion2 start="^\\\[" end="\\\]" contains=@LaTeX,rmdLaTeXRegDelim keepend
 
   " parenthetical citations
-  syn match rmdPCite /\^\@<!\[[^\[\]]\{-}-\{0,1}@[[:alnum:]_][[:alnum:]äëïöüáéíóúàèìòùçâêãõñłßÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÇÂÊÃÕÑŁß_:.#$%&\-+?<>~\/]*.\{-}\]/ contains=rmdCiteKey display
+  syn match rmdPCite /\^\@<!\[[^\[\]]\{-}-\{0,1}@[[:alnum:]_][[:alnum:]à-öø-ÿÀ-ÖØ-ß_:.#$%&\-+?<>~\/]*.\{-}\]/ contains=rmdCiteKey display
   " in-text citations with location
-  syn match rmdICite /@[[:alnum:]_][[:alnum:]äëïöüáéíóúàèìòùçâêãõñłßÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÇÂÊÃÕÑŁß_:.#$%&\-+?<>~\/]*\s\[.\{-1,}\]/ contains=rmdCiteKey display
+  syn match rmdICite /@[[:alnum:]_][[:alnum:]à-öø-ÿÀ-ÖØ-ß_:.#$%&\-+?<>~\/]*\s\[.\{-1,}\]/ contains=rmdCiteKey display
   " cite keys
-  syn match rmdCiteKey /\(-\=@[[:alnum:]_][[:alnum:]äëïöüáéíóúàèìòùçâêãõñłßÄËÏÖÜÁÉÍÓÚÀÈÌÒÙÇÂÊÃÕÑŁß_:.#$%&\-+?<>~\/]*\)/ containedin=rmdPCite,rmdICite display
+  syn match rmdCiteKey /\(-\=@[[:alnum:]_][[:alnum:]à-öø-ÿÀ-ÖØ-ß_:.#$%&\-+?<>~\/]*\)/ containedin=rmdPCite,rmdICite display
   syn match rmdCiteAnchor /[-@]/ contained containedin=rmdCiteKey display
   syn match rmdCiteLocator /[\[\]]/ contained containedin=rmdPCite,rmdICite
 
