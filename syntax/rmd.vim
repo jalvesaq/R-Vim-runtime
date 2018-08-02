@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Thu Aug 02, 2018  04:52PM
+" Last Change: Thu Aug 02, 2018  05:38PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -29,7 +29,7 @@ runtime syntax/pandoc.vim
 if exists("b:current_syntax")
   " Fix recognition of R code
   syn region pandocDelimitedCodeBlock_r start=/^```{r\>.*}$/ end=/^```$/ contained containedin=pandocDelimitedCodeBlock contains=@R
-  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R keepend
+  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
   hi def link rmdInlineDelim Delimiter
   let b:current_syntax = "rmd"
   finish
@@ -69,28 +69,25 @@ hi def link rmdInlineDelim Delimiter
 hi def link rmdCodeDelim Delimiter
 
 " You don't need this if either your markdown/syntax.vim already highlights
-" the YAML header or you are using standard markdown
+" the YAML header or you are writing standard markdown
 if g:rmd_syn_hl_yaml == 1
   " Minimum highlighting of yaml header
   syn match rmdYamlFieldTtl /^\s*\zs\w*\ze:/ contained
   syn match rmdYamlFieldTtl /^\s*-\s*\zs\w*\ze:/ contained
-  syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,rString
+  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"'
+        \ contains=yamlEscape,rmdrInline
+  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start="'" skip="''"  end="'"
+        \ contains=yamlSingleEscape,rmdrInline
+  syn match  yamlEscape contained '\\\%([\\"abefnrtv\^0_ NLP\n]\|x\x\x\|u\x\{4}\|U\x\{8}\)'
+  syn match  yamlSingleEscape contained "''"
+  syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString
   hi def link rmdYamlBlockDelim Delimiter
   hi def link rmdYamlFieldTtl Identifier
-elseif g:rmd_syn_hl_yaml == 2
-  " From vim-pandoc-syntax
-  " Load all of the yaml syntax highlighting rules into @YAML
-  try
-    unlet! b:current_syntax
-    syn include @YAML syntax/yaml.vim
-  catch /E484/
-  endtry
-  syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=@YAML
-  hi def link rmdYamlBlockDelim Delimiter
+  hi def link yamlFlowString String
 endif
 
 " You don't need this if either your markdown/syntax.vim already highlights
-" citations or you are using standard markdown
+" citations or you are writing standard markdown
 if g:rmd_syn_hl_citations
   " From vim-pandoc-syntax
   " parenthetical citations
