@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Wed Jun 14, 2017  10:22AM
+" Last Change:	      Wed Aug 01, 2018  10:10PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions might be defined in
@@ -43,9 +43,8 @@ endif
 if exists("g:r_syntax_folding") && g:r_syntax_folding
   setlocal foldmethod=syntax
 endif
-if !exists("g:r_syntax_hl_roxygen")
-  let g:r_syntax_hl_roxygen = 1
-endif
+
+let g:r_syntax_hl_roxygen = get(g:, 'r_syntax_hl_roxygen', 1)
 
 syn case match
 
