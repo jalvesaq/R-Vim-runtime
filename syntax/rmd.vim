@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Thu Aug 02, 2018  05:38PM
+" Last Change: Sat Aug 04, 2018  02:18PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -70,7 +70,7 @@ hi def link rmdCodeDelim Delimiter
 
 " You don't need this if either your markdown/syntax.vim already highlights
 " the YAML header or you are writing standard markdown
-if g:rmd_syn_hl_yaml == 1
+if g:rmd_syn_hl_yaml
   " Minimum highlighting of yaml header
   syn match rmdYamlFieldTtl /^\s*\zs\w*\ze:/ contained
   syn match rmdYamlFieldTtl /^\s*-\s*\zs\w*\ze:/ contained
@@ -98,11 +98,11 @@ if g:rmd_syn_hl_citations
   syn match pandocCiteKey /\(-\=@[[:alnum:]_][[:alnum:]à-öø-ÿÀ-ÖØ-ß_:.#$%&\-+?<>~\/]*\)/ containedin=pandocPCite,pandocICite contains=@NoSpell display
   syn match pandocCiteAnchor /[-@]/ contained containedin=pandocCiteKey display
   syn match pandocCiteLocator /[\[\]]/ contained containedin=pandocPCite,pandocICite
-  hi link pandocPCite Operator
-  hi link pandocICite Operator
-  hi link pandocCiteKey Label
-  hi link pandocCiteAnchor Operator
-  hi link pandocCiteLocator Operator
+  hi def link pandocPCite Operator
+  hi def link pandocICite Operator
+  hi def link pandocCiteKey Label
+  hi def link pandocCiteAnchor Operator
+  hi def link pandocCiteLocator Operator
 endif
 
 let b:current_syntax = "rmd"
