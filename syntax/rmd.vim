@@ -1,16 +1,13 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Aug 04, 2018  02:18PM
+" Last Change: Sun Aug 05, 2018  10:58PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
 "   recommended to install the vim-pandoc filetype plugin as well as the
 "   vim-pandoc-syntax filetype plugin from https://github.com/vim-pandoc.
-"
-"   Note: The option g:rmd_syn_hl_chunk no longer exists. You may want to try
-"   pandoc-vim-syntax which highlights the header of chunks of R code with R
-"   syntax.
+
 
 if exists("b:current_syntax")
   finish
@@ -21,6 +18,8 @@ endif
 let g:rmd_syn_hl_yaml = get(g:, 'rmd_syn_hl_yaml', 1)
 " Add syntax highlighting of citation keys
 let g:rmd_syn_hl_citations = get(g:, 'rmd_syn_hl_citations', 1)
+" Highlight the header of the chunk of R code
+let g:rmd_syn_hl_chunk = get(g:, 'g:rmd_syn_hl_chunk', 0)
 
 " Pandoc-syntax has more features, but it is slower.
 " https://github.com/vim-pandoc/vim-pandoc-syntax
@@ -60,7 +59,12 @@ for s:type in g:rmd_fenced_languages
   endif
   unlet! b:current_syntax
   exe 'syn include @Rmd'.s:nm.' syntax/'.s:lng.'.vim'
-  exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm
+  if g:rmd_syn_hl_chunk
+    exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmd'.s:nm
+    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
+  else
+    exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm
+  endif
   exe 'syn region rmd'.s:nm.'Inline matchgroup=rmdInlineDelim start="`'.s:nm.' "  end="`" contains=@Rmd'.s:nm.' keepend'
 endfor
 unlet! s:type
