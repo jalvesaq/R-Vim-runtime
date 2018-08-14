@@ -587,6 +587,12 @@ y = x &
 y = x |
     x
 
+test <- this('the function works',
+    {
+        x <- 0
+    }
+)
+
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
@@ -597,12 +603,6 @@ test <- this('the function works', {
 test_that('the function works', {
         x <- 0
     })
-
-test <- this('the function works',
-    {
-        x <- 0
-    }
-)
 
 that('the function works', {
         x <- 0

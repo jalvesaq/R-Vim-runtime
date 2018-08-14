@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Feb 18, 2016  06:32AM
+" Last Change:	Tue Aug 14, 2018  03:27PM
 
 
 " Only load this indent file when no other was loaded.
@@ -231,7 +231,7 @@ function GetRIndent()
 
   let cline = SanitizeRLine(cline)
 
-  if cline =~ '^\s*}' || cline =~ '^\s*}\s*)$'
+  if cline =~ '^\s*}'
     let indline = s:Get_matching_brace(clnum, '{', '}', 1)
     if indline > 0 && indline != clnum
       let iline = SanitizeRLine(getline(indline))
@@ -242,6 +242,11 @@ function GetRIndent()
         return indent(indline)
       endif
     endif
+  endif
+
+  if cline =~ '^\s*)$'
+    let indline = s:Get_matching_brace(clnum, '(', ')', 1)
+    return indent(indline)
   endif
 
   " Find the first non blank line above the current line
