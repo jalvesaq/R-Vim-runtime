@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Aug 14, 2018  03:27PM
+" Last Change:	Sun Aug 19, 2018  12:00PM
 
 
 " Only load this indent file when no other was loaded.
@@ -20,21 +20,12 @@ if exists("*GetRIndent")
 endif
 
 " Options to make the indentation more similar to Emacs/ESS:
-if !exists("g:r_indent_align_args")
-  let g:r_indent_align_args = 1
-endif
-if !exists("g:r_indent_ess_comments")
-  let g:r_indent_ess_comments = 0
-endif
-if !exists("g:r_indent_comment_column")
-  let g:r_indent_comment_column = 40
-endif
-if ! exists("g:r_indent_ess_compatible")
-  let g:r_indent_ess_compatible = 0
-endif
-if ! exists("g:r_indent_op_pattern")
-  let g:r_indent_op_pattern = '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$'
-endif
+let g:r_indent_align_args     = get(g:, 'r_indent_align_args',      1)
+let g:r_indent_ess_comments   = get(g:, 'r_indent_ess_comments',    0)
+let g:r_indent_comment_column = get(g:, 'r_indent_comment_column', 40)
+let g:r_indent_ess_compatible = get(g:, 'r_indent_ess_compatible',  0)
+let g:r_indent_op_pattern     = get(g:, 'r_indent_op_pattern',
+      \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$')
 
 function s:RDelete_quotes(line)
   let i = 0
