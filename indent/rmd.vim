@@ -2,7 +2,7 @@
 " Language:	Rmd
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Thu Jul 19, 2018  09:12PM
+" Last Change:	Sun Aug 19, 2018  09:14PM
 
 
 " Only load this indent file when no other was loaded.
@@ -19,6 +19,9 @@ setlocal indentexpr=GetRmdIndent()
 if exists("*GetRmdIndent")
   finish
 endif
+
+let s:cpo_save = &cpo
+set cpo&vim
 
 function s:GetMdIndent()
   let pline = getline(v:lnum - 1)
@@ -56,5 +59,8 @@ function GetRmdIndent()
     return s:GetMdIndent()
   endif
 endfunction
+
+let &cpo = s:cpo_save
+unlet s:cpo_save
 
 " vim: sw=2

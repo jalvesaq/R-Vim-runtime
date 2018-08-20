@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sun Aug 19, 2018  12:00PM
+" Last Change:	Sun Aug 19, 2018  09:13PM
 
 
 " Only load this indent file when no other was loaded.
@@ -18,6 +18,9 @@ setlocal indentexpr=GetRIndent()
 if exists("*GetRIndent")
   finish
 endif
+
+let s:cpo_save = &cpo
+set cpo&vim
 
 " Options to make the indentation more similar to Emacs/ESS:
 let g:r_indent_align_args     = get(g:, 'r_indent_align_args',      1)
@@ -511,7 +514,9 @@ function GetRIndent()
   endwhile
 
   return ind
-
 endfunction
+
+let &cpo = s:cpo_save
+unlet s:cpo_save
 
 " vim: sw=2
