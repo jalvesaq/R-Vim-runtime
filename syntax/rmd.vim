@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Aug 19, 2018  09:06PM
+" Last Change: Mon Aug 20, 2018  08:55PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -12,9 +12,6 @@
 if exists("b:current_syntax")
   finish
 endif
-
-let s:cpo_save = &cpo
-set cpo&vim
 
 " Configuration if not using pandoc syntax:
 " Add syntax highlighting of YAML header
@@ -34,10 +31,11 @@ if exists("b:current_syntax")
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
   hi def link rmdInlineDelim Delimiter
   let b:current_syntax = "rmd"
-  let &cpo = s:cpo_save
-  unlet s:cpo_save
   finish
 endif
+
+let s:cpo_save = &cpo
+set cpo&vim
 
 " R chunks will not be highlighted by syntax/markdown because their headers
 " follow a non standard pattern: "```{lang" instead of "^```lang".
