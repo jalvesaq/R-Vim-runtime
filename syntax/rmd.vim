@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Mon Aug 20, 2018  08:55PM
+" Last Change: Sat Aug 25, 2018  03:44PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -81,10 +81,8 @@ if g:rmd_syn_hl_yaml
   " Minimum highlighting of yaml header
   syn match rmdYamlFieldTtl /^\s*\zs\w*\ze:/ contained
   syn match rmdYamlFieldTtl /^\s*-\s*\zs\w*\ze:/ contained
-  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"'
-        \ contains=yamlEscape,rmdrInline
-  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start="'" skip="''"  end="'"
-        \ contains=yamlSingleEscape,rmdrInline
+  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"' contains=yamlEscape,rmdrInline contained
+  syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start="'" skip="''"  end="'" contains=yamlSingleEscape,rmdrInline contained
   syn match  yamlEscape contained '\\\%([\\"abefnrtv\^0_ NLP\n]\|x\x\x\|u\x\{4}\|U\x\{8}\)'
   syn match  yamlSingleEscape contained "''"
   syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString
