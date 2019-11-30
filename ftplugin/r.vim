@@ -20,13 +20,22 @@ setlocal formatoptions-=t
 setlocal commentstring=#\ %s
 setlocal comments=:#',:###,:##,:#
 
+if get(g:, 'r_recommended_style', 0)
+  let b:r_set_style = 1
+  setlocal tabstop=2 shiftwidth=0 expandtab
+endif
+
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
   let b:browsefilter = "R Source Files (*.R)\t*.R\n" .
         \ "Files that include R (*.Rnw *.Rd *.Rmd *.Rrst *.qmd)\t*.Rnw;*.Rd;*.Rmd;*.Rrst;*.qmd\n" .
         \ "All Files (*.*)\t*.*\n"
 endif
 
-let b:undo_ftplugin = "setl cms< com< fo< isk< | unlet! b:browsefilter"
+let b:undo_ftplugin = "setl cms< com< fo< isk<
+      \| if exists('b:r_set_style')
+      \| unlet b:r_set_style | setlocal tabstop< shiftwidth< expandtab<
+      \| endif
+      \| unlet! b:browsefilter"
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
