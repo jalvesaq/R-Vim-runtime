@@ -32,8 +32,10 @@ if has("gui_win32") && !exists("b:browsefilter")
 endif
 
 let b:undo_ftplugin = "setl cms< com< fo< isk<
-			\| if exists('b:r_set_style') | setlocal tabstop< shiftwidth< expandtab< | endif
-			\| unlet! b:browsefilter"
+			\| if exists('b:r_set_style')
+				\| unlet b:r_set_style | setlocal tabstop< shiftwidth< expandtab<
+				\| endif
+				\| unlet! b:browsefilter"
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
