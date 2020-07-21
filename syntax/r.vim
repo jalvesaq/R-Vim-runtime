@@ -155,7 +155,10 @@ if g:r_syntax_hl_roxygen
   syn match rOTag contained "@S3method"
   syn match rOTag contained "@useDynLib"
   " other
+  syn match rOTag contained "@eval"
   syn match rOTag contained "@include"
+  syn match rOTag contained "@includeRmd"
+  syn match rOTag contained "@order"
 endif
 
 
