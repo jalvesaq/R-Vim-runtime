@@ -27,7 +27,7 @@ let g:pandoc#syntax#codeblocks#embeds#langs = get(g:, 'pandoc#syntax#codeblocks#
 runtime syntax/pandoc.vim
 if exists("b:current_syntax")
   " Fix recognition of R code
-  syn region pandocDelimitedCodeBlock_r start=/^```{r\>.*}$/ end=/^```$/ contained containedin=pandocDelimitedCodeBlock contains=@R
+  syn region pandocDelimitedCodeBlock_r start=/^\s*```{r\>.*}$/ end=/^\s*```$/ contained containedin=pandocDelimitedCodeBlock contains=@R
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
   hi def link rmdInlineDelim Delimiter
   let b:current_syntax = "rmd"
