@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Wed Aug 01, 2018  10:10PM
+" Last Change:	      Sun Mar 28, 2021  01:47PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions might be defined in
@@ -194,6 +194,11 @@ syn match rSpecial display contained "\\U\x\{1,8}"
 syn match rSpecial display contained "\\u{\x\{1,4}}"
 syn match rSpecial display contained "\\U{\x\{1,8}}"
 
+" Raw string
+syn region rRawString matchgroup=rRawStrDelim start=/[rR]\z(['"]\)\z(-*\)(/ end=/)\z2\z1/ keepend
+syn region rRawString matchgroup=rRawStrDelim start=/[rR]\z(['"]\)\z(-*\){/ end=/}\z2\z1/ keepend
+syn region rRawString matchgroup=rRawStrDelim start=/[rR]\z(['"]\)\z(-*\)\[/ end=/\]\z2\z1/ keepend
+
 " Statement
 syn keyword rStatement   break next return
 syn keyword rConditional if else
@@ -362,6 +367,8 @@ hi def link rOperator    Operator
 hi def link rOpError     Error
 hi def link rParenError  Error
 hi def link rPreProc     PreProc
+hi def link rRawString   String
+hi def link rRawStrDelim Delimiter
 hi def link rRepeat      Repeat
 hi def link rSpecial     SpecialChar
 hi def link rStatement   Statement
