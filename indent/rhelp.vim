@@ -20,6 +20,8 @@ setlocal nolisp
 setlocal indentkeys=0{,0},:,!^F,o,O,e
 setlocal indentexpr=GetCorrectRHelpIndent()
 
+let b:undo_indent = "setl ai< cin< inde< indk< <lisp <si"
+
 " Only define the functions once.
 if exists("*GetRHelpIndent")
   finish
