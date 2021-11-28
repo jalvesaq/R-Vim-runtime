@@ -247,6 +247,7 @@ endif
 syn match rOperator    "%\{2}\|%\S\{-}%"
 syn match rOperator '\([!><]\)\@<=='
 syn match rOperator '=='
+syn match rOperator '|>'
 syn match rOpError  '\*\{3}'
 syn match rOpError  '//'
 syn match rOpError  '&&&'

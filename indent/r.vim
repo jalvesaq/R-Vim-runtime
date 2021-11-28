@@ -30,7 +30,7 @@ let g:r_indent_ess_comments   = get(g:, 'r_indent_ess_comments',    0)
 let g:r_indent_comment_column = get(g:, 'r_indent_comment_column', 40)
 let g:r_indent_ess_compatible = get(g:, 'r_indent_ess_compatible',  0)
 let g:r_indent_op_pattern     = get(g:, 'r_indent_op_pattern',
-      \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\)\s*$')
+      \ '\(&\||\|+\|-\|\*\|/\|=\|\~\|%\|->\||>\)\s*$')
 
 function s:RDelete_quotes(line)
   let i = 0
