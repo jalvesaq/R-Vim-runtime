@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Wed Apr 21, 2021  09:55AM
+" Last Change: Mon Feb 21, 2022  09:29AM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -79,7 +79,9 @@ for s:type in g:rmd_fenced_languages
     let s:nm  = s:type
   endif
   unlet! b:current_syntax
-  exe 'syn include @Rmd'.s:nm.' syntax/'.s:ft.'.vim'
+  if filereadable($VIMRUNTIME . '/syntax/'.s:ft.'.vim')
+    exe 'syn include @Rmd'.s:nm.' $VIMRUNTIME/syntax/'.s:ft.'.vim'
+  endif
   if g:rmd_syn_hl_chunk
     exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmdr'
     exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
