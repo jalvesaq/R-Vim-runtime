@@ -79,9 +79,7 @@ for s:type in g:rmd_fenced_languages
     let s:nm  = s:type
   endif
   unlet! b:current_syntax
-  if filereadable($VIMRUNTIME . '/syntax/'.s:ft.'.vim')
-    exe 'syn include @Rmd'.s:nm.' $VIMRUNTIME/syntax/'.s:ft.'.vim'
-  endif
+  exe 'syn include @Rmd'.s:nm.' syntax/'.s:ft.'.vim'
   if g:rmd_syn_hl_chunk
     exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmdr'
     exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
