@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Mon Feb 21, 2022  09:29AM
+" Last Change: Sat Apr 16, 2022  01:13PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -69,6 +69,15 @@ endif
 
 runtime syntax/markdown.vim
 
+
+syn region knitrOption start='^#| ' end='$' contained  containedin=rComment,pythonComment contains=knitrVar,knitrValue transparent
+syn match knitrValue ': \zs.*\ze$' keepend contained containedin=knitrOption
+syn match knitrVar '| \zs\S\{-}\ze:' contained containedin=knitrOption
+hi def link knitrVar PreProc
+hi def link knitrValue Constant
+hi def link knitrOption rComment
+syn cluster rmdChunkOptions contains=knitrOption,knitrVar,knitrValue
+
 " Now highlight chunks:
 for s:type in g:rmd_fenced_languages
   if s:type =~ '='
@@ -82,9 +91,9 @@ for s:type in g:rmd_fenced_languages
   exe 'syn include @Rmd'.s:nm.' syntax/'.s:ft.'.vim'
   if g:rmd_syn_hl_chunk
     exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmdr'
-    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
+    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm.',rmdChunkOptions'
   else
-    exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm
+    exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm.',rmdChunkOptions'
   endif
 endfor
 unlet! s:type
