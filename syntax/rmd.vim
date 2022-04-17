@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sat Apr 16, 2022  03:31PM
+" Last Change: Sun Apr 17, 2022  04:37PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -26,6 +26,7 @@ let g:rmd_syn_hl_chunk = get(g:, 'rmd_syn_hl_chunk', 0)
 let s:save_pandoc_lngs = get(g:, 'pandoc#syntax#codeblocks#embeds#langs', [])
 let g:pandoc#syntax#codeblocks#embeds#langs = []
 
+" Step_1: Source pandoc.vim if it is installed:
 runtime syntax/pandoc.vim
 if exists("b:current_syntax")
   if hlexists('pandocDelimitedCodeBlock')
@@ -39,6 +40,7 @@ if exists("b:current_syntax")
   " Recognize inline R code
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
 else
+  " Step_2: Source markdown.vim if pandoc.vim is not installed
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr keepend
 
   " Configuration if not using pandoc syntax:
@@ -65,10 +67,13 @@ else
     unlet s:save_mfl
   endif
 
+  " Step_2a: Add highlighting for both YAML and citations which are pandoc
+  " specific, but also used in Rmd files
+
   " You don't need this if either your markdown/syntax.vim already highlights
   " the YAML header or you are writing standard markdown
   if g:rmd_syn_hl_yaml
-    " Minimum highlighting of yaml header
+    " Basic highlighting of YAML header
     syn match rmdYamlFieldTtl /^\s*\zs\w*\ze:/ contained
     syn match rmdYamlFieldTtl /^\s*-\s*\zs\w*\ze:/ contained
     syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"' contains=yamlEscape,rmdrInline contained
@@ -101,6 +106,8 @@ else
   endif
 endif
 
+" Step_3: Highlight code blocks.
+
 syn region rmdCodeBlock matchgroup=rmdCodeDelim start="^\s*```\s*{.*}$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend
 syn region rmdCodeBlock matchgroup=rmdCodeDelim start="^\s*```.+$" matchgroup=rmdCodeDelim end="^```$" keepend
 hi link rmdCodeBlock Special
@@ -131,13 +138,15 @@ for s:type in g:rmd_fenced_languages
 endfor
 unlet! s:type
 
-syn match blockDelim '^::: {.\{-}}' contains=pandocHeaderAttr
-syn match blockDelim '^:::$'
+" Step_4: Highlight code recognized by pandoc but not defined in pandoc.vim yet:
+syn match pandocDivBegin '^:::\+ {.\{-}}' contains=pandocHeaderAttr
+syn match pandocDivEnd '^:::\+$'
 
 hi def link knitrVar PreProc
 hi def link knitrValue Constant
 hi def link knitrOption rComment
-hi def link blockDelim Delimiter
+hi def link pandocDivBegin Delimiter
+hi def link pandocDivEnd Delimiter
 hi def link rmdInlineDelim Delimiter
 hi def link rmdCodeDelim Delimiter
 
