@@ -2,7 +2,7 @@
 " Language: Rnoweb
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sun Oct 24, 2021  03:19PM
+" Last Change:	Sun Apr 24, 2022  09:13AM
 
 " Only do this when not yet done for this buffer
 if exists("b:did_ftplugin")
@@ -25,7 +25,7 @@ setlocal suffixesadd=.bib,.tex
 setlocal comments=b:%,b:#,b:##,b:###,b:#'
 
 if (has("gui_win32") || has("gui_gtk")) && !exists("b:browsefilter")
-  let b:browsefilter = "R Source Files (*.R *.Rnw *.Rd *.Rmd *.Rrst)\t*.R;*.Rnw;*.Rd;*.Rmd;*.Rrst\n" .
+  let b:browsefilter = "R Source Files (*.R *.Rnw *.Rd *.Rmd *.Rrst *.qmd)\t*.R;*.Rnw;*.Rd;*.Rmd;*.Rrst;*.qmd\n" .
         \ "All Files (*.*)\t*.*\n"
 endif
 
