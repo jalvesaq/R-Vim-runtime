@@ -285,7 +285,7 @@ function GetRIndent()
   endif
 
   " line is an incomplete command:
-  if line =~ '\<\(if\|while\|for\|function\)\s*()$' || line =~ '\<else$' || line =~ '<-$' || line =~ '->$' || line =~ '|>$'
+  if line =~ '\<\(if\|while\|for\|function\)\s*()$' || line =~ '\<else$' || line =~ '<-$' || line =~ '->$' || line =~ '|>$' || line =~ '%.*%$'
     return indent(lnum) + shiftwidth()
   endif
 
