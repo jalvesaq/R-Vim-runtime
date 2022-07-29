@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Apr 17, 2022  04:37PM
+" Last Change: Fri Jul 29, 2022 at 09:32 AM +0200
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -116,7 +116,6 @@ hi link rmdCodeBlock Special
 syn region knitrOption start='^#| ' end='$' contained  containedin=rComment,pythonComment contains=knitrVar,knitrValue transparent
 syn match knitrValue ': \zs.*\ze$' keepend contained containedin=knitrOption
 syn match knitrVar '| \zs\S\{-}\ze:' contained containedin=knitrOption
-syn cluster rmdChunkOptions contains=knitrOption,knitrVar,knitrValue
 
 let g:rmd_fenced_languages = get(g:, 'rmd_fenced_languages', ['r'])
 for s:type in g:rmd_fenced_languages
@@ -131,9 +130,9 @@ for s:type in g:rmd_fenced_languages
   exe 'syn include @Rmd'.s:nm.' syntax/'.s:ft.'.vim'
   if g:rmd_syn_hl_chunk
     exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmdr'
-    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm.',rmdChunkOptions'
+    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
   else
-    exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm.',rmdChunkOptions'
+    exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm
   endif
 endfor
 unlet! s:type
