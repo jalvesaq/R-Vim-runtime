@@ -1,0 +1,43 @@
+---
+title: Test document for highlighting rmd documents
+---
+
+This purpose of this file is to test highlighting of R markdown documents that
+optionally contain chunk labels and chunk options for processing with the knitr
+R package.
+
+The following examples are taken from Yihuis [knitr options
+page](https://yihui.org/knitr/options/) as per end of July 2022.
+
+Currently, the chunk label `my-chunk` in the following example is highlighted
+as R code, i.e. the hyphen `-` is highlighted as R operator, although dashes
+are [explicitly](https://yihui.org/knitr/options/#chunk-options) and even
+[strongly](https://bookdown.org/yihui/rmarkdown/r-code.html) recommended for
+chunk labels as opposed to underscores.
+
+```{r, my-chunk, echo=FALSE, fig.height=4, dev='jpeg'}
+```
+
+The following alternative form does not suffer from this.
+
+```{r, label='my-chunk'}
+```
+
+The following alternative to specify chunk labels is simply highlighted as an R
+comment.
+
+```{r}
+#| my-chunk, echo = FALSE, fig.width = 10,
+#| fig.cap = "This is a long long
+#|   long long caption."
+
+plot(cars)
+```
+
+When chunk options are specified in yaml syntax, options and their values are
+highlighted differently.
+
+```{r}
+#| echo: false
+#| fig.width: 10
+```
