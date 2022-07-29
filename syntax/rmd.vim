@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Fri Jul 29, 2022 at 09:32 AM +0200
+" Last Change: Fri Jul 29, 2022 at 05:55 PM +0200
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -38,7 +38,7 @@ if exists("b:current_syntax")
   endif
 
   " Recognize inline R code
-  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@R containedin=pandocLaTeXRegion,yamlFlowString keepend
+  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr containedin=pandocLaTeXRegion,yamlFlowString keepend
 else
   " Step_2: Source markdown.vim if pandoc.vim is not installed
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr keepend
@@ -113,9 +113,9 @@ syn region rmdCodeBlock matchgroup=rmdCodeDelim start="^\s*```.+$" matchgroup=rm
 hi link rmdCodeBlock Special
 
 " Now highlight chunks:
-syn region knitrOption start='^#| ' end='$' contained  containedin=rComment,pythonComment contains=knitrVar,knitrValue transparent
-syn match knitrValue ': \zs.*\ze$' keepend contained containedin=knitrOption
-syn match knitrVar '| \zs\S\{-}\ze:' contained containedin=knitrOption
+syn region knitrBodyOptions start='^#| ' end='$' contained  containedin=rComment,pythonComment contains=knitrBodyVar,knitrBodyValue transparent
+syn match knitrBodyValue ': \zs.*\ze$' keepend contained containedin=knitrBodyOptions
+syn match knitrBodyVar '| \zs\S\{-}\ze:' contained containedin=knitrBodyOptions
 
 let g:rmd_fenced_languages = get(g:, 'rmd_fenced_languages', ['r'])
 for s:type in g:rmd_fenced_languages
@@ -129,8 +129,15 @@ for s:type in g:rmd_fenced_languages
   unlet! b:current_syntax
   exe 'syn include @Rmd'.s:nm.' syntax/'.s:ft.'.vim'
   if g:rmd_syn_hl_chunk
-    exe 'syn region rmd'.s:nm.'ChunkDelim matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>" matchgroup=rmdCodeDelim end="}$" keepend containedin=rmd'.s:nm.'Chunk contains=@Rmdr'
-    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=rmd'.s:nm.'ChunkDelim,@Rmd'.s:nm
+    exe 'syn match knitrChunkDelim /```\s*{\s*'.s:nm.'/ contained containedin=knitrChunkBrace contains=knitrChunkLabel'
+    exe 'syn match knitrChunkLabelDelim /```\s*{\s*'.s:nm.',\=\s*[-[:alnum:]]\{-1,}[,}]/ contained containedin=knitrChunkBrace'
+    syn match knitrChunkDelim /}\s*$/ contained containedin=knitrChunkBrace
+    exe 'syn match knitrChunkBrace /```\s*{\s*'.s:nm.'.*$/ contained containedin=rmd'.s:nm.'Chunk contains=knitrChunkDelim,knitrChunkLabelDelim,@Rmd'.s:nm
+    exe 'syn region rmd'.s:nm.'Chunk start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=knitrChunkBrace,@Rmd'.s:nm
+
+    hi link knitrChunkLabel Identifier
+    hi link knitrChunkDelim rmdCodeDelim
+    hi link knitrChunkLabelDelim rmdCodeDelim
   else
     exe 'syn region rmd'.s:nm.'Chunk matchgroup=rmdCodeDelim start="^\s*```\s*{\s*=\?'.s:nm.'\>.*$" matchgroup=rmdCodeDelim end="^\s*```\ze\s*$" keepend contains=@Rmd'.s:nm
   endif
@@ -141,9 +148,9 @@ unlet! s:type
 syn match pandocDivBegin '^:::\+ {.\{-}}' contains=pandocHeaderAttr
 syn match pandocDivEnd '^:::\+$'
 
-hi def link knitrVar PreProc
-hi def link knitrValue Constant
-hi def link knitrOption rComment
+hi def link knitrBodyVar PreProc
+hi def link knitrBodyValue Constant
+hi def link knitrBodyOptions rComment
 hi def link pandocDivBegin Delimiter
 hi def link pandocDivEnd Delimiter
 hi def link rmdInlineDelim Delimiter

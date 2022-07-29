@@ -7,24 +7,42 @@ optionally contain chunk labels and chunk options for processing with the knitr
 R package.
 
 The following examples are taken from Yihuis [knitr options
-page](https://yihui.org/knitr/options/) as per end of July 2022.
+page](https://yihui.org/knitr/options/) as per end of July 2022, and were extended
+to cover some more use cases.
 
-Currently, the chunk label `my-chunk` in the following example is highlighted
-as R code, i.e. the hyphen `-` is highlighted as R operator, although dashes
-are [explicitly](https://yihui.org/knitr/options/#chunk-options) and even
+Note that hyphens are
+[explicitly](https://yihui.org/knitr/options/#chunk-options) and even
 [strongly](https://bookdown.org/yihui/rmarkdown/r-code.html) recommended for
-chunk labels as opposed to underscores.
+chunk labels as opposed to e.g. underscores.
 
-```{r, my-chunk, echo=FALSE, fig.height=4, dev='jpeg'}
+```{r, my-chunk-1, echo=FALSE, fig.height=4, dev='jpeg'}
 ```
 
-The following alternative form does not suffer from this.
+In earlier times, there was no comma before the chunk label
+
+```{r my-chunk-2, echo=FALSE, fig.height=4, dev='jpeg'}
+```
+
+and underscores were used in chunk labels. As underscores are now deprecated
+for chunk labels because they may cause problems with the newer output formats
+from the `bookdown` package, it makes sense not to include such chunk labels in
+the highlighting of the chunk delimiter.
+
+```{r my_old_chunk, echo=FALSE, fig.height=4, dev='jpeg'}
+```
+
+A chunk label can be specified without further options:
+
+```{r, my-chunk-3}
+```
+
+The following alternative form of specifying a chunk label is also possible.
 
 ```{r, label='my-chunk'}
 ```
 
-The following alternative to specify chunk labels is simply highlighted as an R
-comment.
+The following alternative to specify chunk options (and a label in this case)
+is currently simply highlighted as an R comment.
 
 ```{r}
 #| my-chunk, echo = FALSE, fig.width = 10,
@@ -41,3 +59,5 @@ highlighted differently.
 #| echo: false
 #| fig.width: 10
 ```
+
+We also want to use some inline R code `r highlight=TRUE`.
