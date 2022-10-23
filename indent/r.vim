@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sun Aug 19, 2018  09:13PM
+" Last Change:	Sun Oct 23, 2022  01:41PM
 
 
 " Only load this indent file when no other was loaded.
@@ -361,14 +361,14 @@ function GetRIndent()
   let olnum = s:Get_prev_line(lnum)
   let oline = getline(olnum)
   if olnum > 0
-    if line =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
-      if oline =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+    if substitute(line, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+      if substitute(oline, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
         return indent(lnum)
       else
         return indent(lnum) + shiftwidth()
       endif
     else
-      if oline =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+      if substitute(oline, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
         return indent(lnum) - shiftwidth()
       endif
     endif

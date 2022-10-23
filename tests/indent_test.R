@@ -602,6 +602,16 @@ y = x &
 y = x |
     x
 
+test <- cars |>
+    mutate(speedx = speed * 2) |>
+    mutate(distancex2 = distance * 2) |>
+    mutate(speedxdistance = speed * distance)
+
+test <- cars |>
+    mutate(speedx = speed * 2) |> # comment
+    mutate(distancex2 = distance * 2) |> # comment
+    mutate(speedxdistance = speed * distance)
+
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
