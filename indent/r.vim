@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sun Oct 23, 2022  01:41PM
+" Last Change:	Wed Oct 26, 2022  12:04PM
 
 
 " Only load this indent file when no other was loaded.
@@ -372,6 +372,8 @@ function GetRIndent()
         return indent(lnum) - shiftwidth()
       endif
     endif
+  elseif substitute(line, '#.*', '', '') =~ g:r_indent_op_pattern && s:Get_paren_balance(line, "(", ")") == 0
+    return indent(lnum) + shiftwidth()
   endif
 
   let post_fun = 0
