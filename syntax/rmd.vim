@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Fri Jul 29, 2022 at 05:55 PM +0200
+" Last Change: Tue Nov 01, 2022  09:19PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -74,8 +74,8 @@ else
   " the YAML header or you are writing standard markdown
   if g:rmd_syn_hl_yaml
     " Basic highlighting of YAML header
-    syn match rmdYamlFieldTtl /^\s*\zs\w*\ze:/ contained
-    syn match rmdYamlFieldTtl /^\s*-\s*\zs\w*\ze:/ contained
+    syn match rmdYamlFieldTtl /^\s*\zs\w\+-*\w*\ze:/ contained
+    syn match rmdYamlFieldTtl /^\s*-\s*\zs\w\+-*\w*\ze:/ contained
     syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"' contains=yamlEscape,rmdrInline contained
     syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start="'" skip="''"  end="'" contains=yamlSingleEscape,rmdrInline contained
     syn match  yamlEscape contained '\\\%([\\"abefnrtv\^0_ NLP\n]\|x\x\x\|u\x\{4}\|U\x\{8}\)'
