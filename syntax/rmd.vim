@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Tue Nov 01, 2022  09:19PM
+" Last Change: Sun Nov 06, 2022  05:25PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -74,16 +74,22 @@ else
   " the YAML header or you are writing standard markdown
   if g:rmd_syn_hl_yaml
     " Basic highlighting of YAML header
-    syn match rmdYamlFieldTtl /^\s*\zs\w\+-*\w*\ze:/ contained
-    syn match rmdYamlFieldTtl /^\s*-\s*\zs\w\+-*\w*\ze:/ contained
+    syn match rmdYamlFieldTtl /^\s*\zs\w\%(-\|\w\)*\ze:/ contained
+    syn match rmdYamlFieldTtl /^\s*-\s*\zs\w\%(-\|\w\)*\ze:/ contained
     syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start='"' skip='\\"' end='"' contains=yamlEscape,rmdrInline contained
     syn region yamlFlowString matchgroup=yamlFlowStringDelimiter start="'" skip="''"  end="'" contains=yamlSingleEscape,rmdrInline contained
     syn match  yamlEscape contained '\\\%([\\"abefnrtv\^0_ NLP\n]\|x\x\x\|u\x\{4}\|U\x\{8}\)'
     syn match  yamlSingleEscape contained "''"
-    syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString
+    syn match yamlComment /#.*/ contained
+    if &filetype == 'quarto'
+      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^---$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment
+    else
+      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment
+    endif
     hi def link rmdYamlBlockDelim Delimiter
     hi def link rmdYamlFieldTtl Identifier
     hi def link yamlFlowString String
+    hi def link yamlComment Comment
   endif
 
   " You don't need this if either your markdown/syntax.vim already highlights
