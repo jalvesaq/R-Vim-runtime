@@ -2,7 +2,7 @@
 " Language:	Rmd
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sun Mar 28, 2021  08:05PM
+" Last Change:	Wed Nov 09, 2022  09:44PM
 
 
 " Only load this indent file when no other was loaded.
@@ -49,6 +49,8 @@ function s:GetMdIndent()
     return indent(v:lnum - 1) + 2
   elseif pline =~ '^\s*\d\+\.\s\+'
     return indent(v:lnum - 1) + 3
+  elseif pline =~ '^\[\^\S\+\]: '
+    return indent(v:lnum - 1) + shiftwidth()
   endif
   return indent(prevnonblank(v:lnum - 1))
 endfunction
