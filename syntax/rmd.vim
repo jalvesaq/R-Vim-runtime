@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Nov 06, 2022  05:25PM
+" Last Change: Wed Nov 09, 2022  10:06PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -41,7 +41,6 @@ if exists("b:current_syntax")
   syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr containedin=pandocLaTeXRegion,yamlFlowString keepend
 else
   " Step_2: Source markdown.vim if pandoc.vim is not installed
-  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr keepend
 
   " Configuration if not using pandoc syntax:
   " Add syntax highlighting of YAML header
@@ -66,6 +65,7 @@ else
     let g:markdown_fenced_languages = deepcopy(s:save_mfl)
     unlet s:save_mfl
   endif
+  syn region rmdrInline matchgroup=rmdInlineDelim start="`r "  end="`" contains=@Rmdr keepend
 
   " Step_2a: Add highlighting for both YAML and citations which are pandoc
   " specific, but also used in Rmd files
