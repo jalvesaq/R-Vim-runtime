@@ -1,7 +1,7 @@
 " markdown Text with R statements
 " Language: markdown with R code chunks
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Wed Nov 09, 2022  10:06PM
+" Last Change: Sun Nov 13, 2022  08:33PM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -81,15 +81,18 @@ else
     syn match  yamlEscape contained '\\\%([\\"abefnrtv\^0_ NLP\n]\|x\x\x\|u\x\{4}\|U\x\{8}\)'
     syn match  yamlSingleEscape contained "''"
     syn match yamlComment /#.*/ contained
+    " A second colon is a syntax error, unles within a string or following !expr
+    syn match yamlColonError /:\s*[^'^"^!]*:/ contained
     if &filetype == 'quarto'
-      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^---$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment
+      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^---$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment,yamlColonError
     else
-      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment
+      syn region pandocYAMLHeader matchgroup=rmdYamlBlockDelim start=/\%(\%^\|\_^\s*\n\)\@<=\_^-\{3}\ze\n.\+/ end=/^\([-.]\)\1\{2}$/ keepend contains=rmdYamlFieldTtl,yamlFlowString,yamlComment,yamlColonError
     endif
     hi def link rmdYamlBlockDelim Delimiter
     hi def link rmdYamlFieldTtl Identifier
     hi def link yamlFlowString String
     hi def link yamlComment Comment
+    hi def link yamlColonError Error
   endif
 
   " You don't need this if either your markdown/syntax.vim already highlights
