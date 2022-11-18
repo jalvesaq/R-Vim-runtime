@@ -5,7 +5,7 @@
 " 		      Tom Payne <tom@tompayne.org>
 " Contributor:        Johannes Ranke <jranke@uni-bremen.de>
 " Homepage:           https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	      Sun Mar 28, 2021  01:47PM
+" Last Change:	      Thu Nov 17, 2022  10:13PM
 " Filenames:	      *.R *.r *.Rhistory *.Rt
 "
 " NOTE: The highlighting of R functions might be defined in
@@ -239,10 +239,10 @@ syn match rOperator    "&"
 syn match rOperator    '-'
 syn match rOperator    '\*'
 syn match rOperator    '+'
-if &filetype != "rmd" && &filetype != "rrst"
-  syn match rOperator    "[|!<>^~/:]"
-else
+if &filetype == "quarto" || &filetype == "rmd" || &filetype == "rrst"
   syn match rOperator    "[|!<>^~`/:]"
+else
+  syn match rOperator    "[|!<>^~/:]"
 endif
 syn match rOperator    "%\{2}\|%\S\{-}%"
 syn match rOperator '\([!><]\)\@<=='
@@ -316,7 +316,9 @@ endif
 syn keyword rType array category character complex double function integer list logical matrix numeric vector data.frame
 
 " Name of object with spaces
-if &filetype != "rmd" && &filetype != "rrst"
+if &filetype == "rmd" || &filetype == "rrst" || &filetype == "quarto"
+  syn region rNameWSpace start="`" end="`" contains=rSpaceFun containedin=rmdrChunk
+else
   syn region rNameWSpace start="`" end="`" contains=rSpaceFun
 endif
 
