@@ -1,7 +1,7 @@
-" markdown Text with R statements
-" Language: markdown with R code chunks
+" Language: Markdown with chunks of R, Python and other languages
+" Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Nov 13, 2022  08:33PM
+" Last Change: Fri Feb 24, 2023  08:28AM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
