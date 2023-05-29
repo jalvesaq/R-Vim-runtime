@@ -1,7 +1,7 @@
 " Language: Markdown with chunks of R, Python and other languages
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Mon May 08, 2023  07:07AM
+" Last Change: Wed May 17, 2023  06:34AM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -95,6 +95,11 @@ else
     hi def link yamlFlowString String
     hi def link yamlComment Comment
     hi def link yamlColonError Error
+  endif
+
+  " Conceal char for manual line break
+  if &encoding ==# 'utf-8'
+    syn match rmdNewLine '  $' conceal cchar=↵
   endif
 
   " You don't need this if either your markdown/syntax.vim already highlights
