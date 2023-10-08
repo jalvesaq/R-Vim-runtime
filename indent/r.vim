@@ -2,7 +2,7 @@
 " Language:	R
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Sat Oct 07, 2023  03:56PM
+" Last Change:	Sun Oct 08, 2023  10:45AM
 
 
 " Only load this indent file when no other was loaded.
@@ -13,6 +13,7 @@ let b:did_indent = 1
 
 setlocal indentkeys=0{,0},:,!^F,o,O,e
 setlocal indentexpr=GetRIndent()
+setlocal autoindent
 
 let b:undo_indent = "setl inde< indk<"
 
