@@ -603,6 +603,15 @@ test <- cars |>
     mutate(distancex2 = distance * 2) |> # comment
     mutate(speedxdistance = speed * distance)
 
+library("ggplot2")
+mtcars |>
+    ggplot(aes(x = wt, y = mpg)) +
+    geom_point() +
+    labs(title = "title",
+        subtitle = "subtitle") +
+    xlab("Weight") +
+    ylab("Miles/(US) gallon")
+
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
