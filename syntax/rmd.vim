@@ -1,7 +1,7 @@
 " Language: Markdown with chunks of R, Python and other languages
 " Maintainer: Jakson Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change: Sun Oct 08, 2023  08:55AM
+" Last Change: Sat Nov 11, 2023  10:28AM
 "
 "   For highlighting pandoc extensions to markdown like citations and TeX and
 "   many other advanced features like folding of markdown sections, it is
@@ -258,6 +258,10 @@ endif
 unlet s:save_pandoc_lngs
 let &cpo = s:cpo_save
 unlet s:cpo_save
+
+if has("patch-7.4.1142")
+  syntax iskeyword clear
+endif
 
 let b:current_syntax = "rmd"
 
