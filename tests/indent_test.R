@@ -624,6 +624,20 @@ mtcars |>
 ############################################################################
 ## indent/r.vim starts to make mistakes here
 
+output2 <- input %>%
+    layer_dense(units = 10,
+                input_shape = 2) %>%
+    layer_dense(units = 10,
+                input_shape = 2)
+x <- 0
+
+output2 <- input |>
+    layer_dense(units = 10,
+                input_shape = 2) |>
+    layer_dense(units = 10,
+                input_shape = 2)
+x <- 0
+
 test <- this('the function works',
              {
                  x <- 0
