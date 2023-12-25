@@ -5,12 +5,12 @@ R MARKDOWN							 *ft-rmd-plugin*
 
 By default ftplugin/html.vim is not sourced. If you want it sourced, add to
 your |vimrc|: >
-    let rmd_include_html = 1
+	let rmd_include_html = 1
 
 The 'formatexpr' option is set dynamically with different values for R code
 and for Markdown code. If you prefer that 'formatexpr' is not set, add to your
 |vimrc|: >
-    let rmd_dynamic_comments = 0
+	let rmd_dynamic_comments = 0
 
 
 R RESTRUCTURED TEXT						*ft-rrst-plugin*
@@ -18,7 +18,7 @@ R RESTRUCTURED TEXT						*ft-rrst-plugin*
 The 'formatexpr' option is set dynamically with different values for R code
 and for LaTeX code. If you prefer that 'formatexpr' is not set, add to your
 |vimrc|: >
-    let rrst_dynamic_comments = 0
+	let rrst_dynamic_comments = 0
 
 
 RNOWEB							      *ft-rnoweb-plugin*
@@ -26,7 +26,7 @@ RNOWEB							      *ft-rnoweb-plugin*
 The 'formatexpr' option is set dynamically with different values for R code
 and for LaTeX code. If you prefer that 'formatexpr' is not set, add to your
 |vimrc|: >
-    let rnw_dynamic_comments = 0
+	let rnw_dynamic_comments = 0
 
 
 INDENT.TXT~
@@ -53,8 +53,8 @@ r_indent_comment_column, as in the example below:
    let r_indent_comment_column = 30
 <
 Any code after a line that ends with "<-" is indented. Emacs/ESS does not
-indent the code if it is a top-level function. If you prefer that the
-Vim-R-plugin behaves like Emacs/ESS in this regard, put in your |vimrc|:
+indent the code if it is a top-level function. If you prefer a behavior like
+Emacs/ESS one in this regard, put in your |vimrc|:
 >
    let r_indent_ess_compatible = 1
 <
@@ -75,33 +75,33 @@ lines that match a different pattern, you should set the appropriate value of
 
 SYNTAX.TXT~
 
-R							     *r.vim* *ft-r-syntax*
+R							   *r.vim* *ft-r-syntax*
 
 The parsing of R code for syntax highlight starts 40 lines backward, but you
 can set a different value in your |vimrc|. Example: >
-    let r_syntax_minlines = 60
+	let r_syntax_minlines = 60
 
 You can also turn off the syntax highlighting of ROxygen: >
-    let r_syntax_hl_roxygen = 0
+	let r_syntax_hl_roxygen = 0
 
 enable folding of code delimited by parentheses, square brackets, and curly
 braces: >
-    let r_syntax_folding = 1
+	let r_syntax_folding = 1
 
 and highlight as functions all keywords followed by an opening parenthesis: >
-    let r_syntax_fun_pattern = 1
+	let r_syntax_fun_pattern = 1
 
 
-R MARKDOWN						 *rmd.vim* *ft-rmd-syntax*
+R MARKDOWN					 *rmd.vim* *ft-rmd-syntax*
 
 To disable syntax highlighting of YAML header, add to your |vimrc|: >
-    let rmd_syn_hl_yaml = 0
+	let rmd_syn_hl_yaml = 0
 
 To disable syntax highlighting of citation keys: >
-    let rmd_syn_hl_citations = 0
+	let rmd_syn_hl_citations = 0
 
 To highlight R code in knitr chunk headers: >
-    let rmd_syn_hl_chunk = 1
+	let rmd_syn_hl_chunk = 1
 
 By default, chunks of R code will be highlighted following the rules of R
 language. Moreover, whenever the buffer is saved, Vim scans the buffer and
@@ -109,22 +109,22 @@ highlights other languages if they are present in new chunks. LaTeX code also
 is automatically recognized and highlighted when the buffer is saved. This
 behavior can be controlled with the variables `rmd_dynamic_fenced_languages`,
 and `rmd_include_latex` whose valid values are: >
-    let rmd_dynamic_fenced_languages = 0 " No autodetection of languages
-    let rmd_dynamic_fenced_languages = 1 " Autodetection of languages
-    let rmd_include_latex = 0 " Don't highlight LaTeX code
-    let rmd_include_latex = 1 " Autodetect LaTeX code
-    let rmd_include_latex = 2 " Always include LaTeX highlighting
+	let rmd_dynamic_fenced_languages = 0 " No autodetection of languages
+	let rmd_dynamic_fenced_languages = 1 " Autodetection of languages
+	let rmd_include_latex = 0 " Don't highlight LaTeX code
+	let rmd_include_latex = 1 " Autodetect LaTeX code
+	let rmd_include_latex = 2 " Always include LaTeX highlighting
 
 If the value of `rmd_dynamic_fenced_languages` is 0, you still can set the
 list of languages whose chunks of code should be properly highlighted, as in
 the example: >
-    let rmd_fenced_languages = ['r', 'python']
+	let rmd_fenced_languages = ['r', 'python']
 
 
-R RESTRUCTURED TEXT				       *rrst.vim* *ft-rrst-syntax*
+R RESTRUCTURED TEXT				     *rrst.vim* *ft-rrst-syntax*
 
 To highlight R code in knitr chunk headers, add to your |vimrc|: >
-    let rrst_syn_hl_chunk = 1
+	let rrst_syn_hl_chunk = 1
 
 
  vim:tw=78:sw=4:ts=8:noet:ft=help:norl:

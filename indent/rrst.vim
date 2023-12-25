@@ -2,7 +2,7 @@
 " Language:	Rrst
 " Author:	Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage:     https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Tue Apr 07, 2015  04:38PM
+" Last Change:	Feb 25, 2023
 
 
 " Only load this indent file when no other was loaded.
