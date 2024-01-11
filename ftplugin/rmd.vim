@@ -2,7 +2,7 @@
 " Language: R Markdown file
 " Maintainer: Jakson Alves de Aquino <jalvesaq@gmail.com>
 " Homepage: https://github.com/jalvesaq/R-Vim-runtime
-" Last Change:	Mon May 29, 2023  06:31AM
+" Last Change:	Thu Jan 11, 2024  10:00AM
 " Original work by Alex Zvoleff (adjusted from R help for rmd by Michel Kuhlmann)
 
 " Only do this when not yet done for this buffer
@@ -39,8 +39,19 @@ function SetRmdCommentStr()
   endif
   let s:last_line = line('.')
 
-  if (search("^[ \t]*```[ ]*{r", "bncW") > search("^[ \t]*```$", "bncW")) || ((search('^---$', 'Wn') || search('^\.\.\.$', 'Wn')) && search('^---$', 'bnW'))
+  if (search('^---$', 'Wn') || search('^\.\.\.$', 'Wn')) && search('^---$', 'bnW')
     set commentstring=#\ %s
+  elseif search("^[ \t]*```[ ]*{", "bncW") > search("^[ \t]*```$", "bncW")
+    let hln = getline(search("^[ \t]*```[ ]*{", "bncW"))
+    let lng = substitute(hln, "^[ \t]*```[ ]*{", "", "")
+    let lng = substitute(lng, "[, }].*", "", "")
+    if lng == "lua"
+      set commentstring=--\ %s
+    elseif lng == "ojs" || lng == "typescript" || lng == "javascript"
+      set commentstring=//%s
+    else
+      set commentstring=#\ %s
+    endif
   else
     set commentstring=<!--\ %s\ -->
   endif
