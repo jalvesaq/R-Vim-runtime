@@ -1,27 +1,10 @@
 # R-Vim-runtime
 
-This repository contains the development versions of R related runtime files
+This repository used to contain the development versions of R related runtime files
 distributed with both [Vim] and [Neovim].
 
-The runtime files are sent to both Vim and Neovim maintainers when the
-accumulated changes become important.
-
-You may copy the files to your personal `~/.vim` or `~/.config/nvim`
-directory, but, instead of copying the files and checking for updates
-manually, you may want to use a plugin manager like [Vim-Plug].
-
-In some systems, the first files sourced by Vim and Neovim are from the system
-directories. In this case, if you want up to date runtime files, you have to
-copy them to either Vim or Neovim runtime directories. 
-
-## Options
-
-The use of indentation options is explained in the official distribution. To
-see the documentation, please, in Vim or Neovim, do:
-
-```vim
-:help ft-r-indent
-```
+The runtime files were sent to both Vim and Neovim maintainers when the
+accumulated changes became important.
 
 ## Known bugs
 
